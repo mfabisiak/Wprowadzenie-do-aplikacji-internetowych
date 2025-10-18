@@ -1,0 +1,115 @@
+html {
+      background-color: rgb(232, 203, 127);
+      height: 100vh;
+}
+
+body {
+    margin: 40px;
+    color: #085721;
+}
+
+article {
+    text-align: justify;
+    column-count: 3;
+    column-gap: 40px;
+    margin: 20px;
+}
+
+article p {
+    margin-top: 0;
+}
+img {
+    margin: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: #085721;
+    transition: color ease-in 0.2s;
+
+}
+
+a:visited {
+    color: #085721;
+}
+
+a:hover {
+    color: #b10303;
+}
+
+a:active {
+    color: #7a0000;
+}
+
+article #author {
+    color: #8e0b0b;
+    font-style: italic;
+}
+article h1 {
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+article h1, article #author {
+    column-span: all;
+    font-weight: bold;
+
+}
+
+table, th, td {
+    border: black solid 1px;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 5px;
+}
+
+#first_row {
+    display: flex;
+    justify-content: center;
+}
+#second_row {
+    display: flex;
+    justify-content: center;
+}
+
+.square {
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    margin: 20px;
+}
+
+.square img {
+    margin: 0;
+}
+
+#sq1 {
+    background-color: red;
+}
+
+#sq2 {
+    background-color: yellow;
+}
+
+#sq3 {
+    background-color: green;
+}
+
+#sq4 {
+    background-color: grey;
+}
+
+#sq5 {
+    background-color: orange;
+}
+
+
+
+.main-container {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+}
