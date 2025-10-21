@@ -65,11 +65,7 @@ th, td {
     padding: 5px;
 }
 
-#first_row {
-    display: flex;
-    justify-content: center;
-}
-#second_row {
+.square_row {
     display: flex;
     justify-content: center;
 }
