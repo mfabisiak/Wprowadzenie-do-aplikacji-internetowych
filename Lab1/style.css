@@ -10,9 +10,26 @@ body {
 
 article {
     text-align: justify;
-    column-count: 3;
     column-gap: 40px;
     margin: 20px;
+}
+
+@media (max-width: 500px) {
+    article {
+        column-count: 1;
+    }
+}
+
+@media (min-width: 501px) and (max-width: 1000px) {
+    article {
+        column-count: 2;
+    }
+}
+
+@media (min-width: 1001px) {
+    article {
+        column-count: 3;
+    }
 }
 
 article p {
@@ -57,7 +74,7 @@ article h1, article #author {
 }
 
 table, th, td {
-    border: black solid 1px;
+    border: black solid 2px;
     border-collapse: collapse;
 }
 
