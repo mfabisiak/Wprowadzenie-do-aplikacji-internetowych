@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+:root {
+    --error-color: #000000;
+}
+
 body.dark-mode {
     --background-color: #1F2023;
     --text-color: #EAEAEA;
@@ -20,6 +24,7 @@ body.light-mode {
 
 
 body {
+    visibility: hidden;
     color: var(--text-color);
     background-color: var(--background-color);
     display: flex;
@@ -55,7 +60,50 @@ nav > ul > li > a {
     font-weight: bold;
 }
 
-main {
+#create-set, #edit-set {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.set-management {
+    background-color: var(--menu-background-color);
+    color: var(--menu-text-color);
+    padding: 20px;
+    border-radius: 8px;
+    width: 70%;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+form > .labeled-text-input {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px;
+}
+
+#set-name {
+    width: 20%;
+}
+
+#set-description {
+    width: 50%;
+}
+
+
+
+.error-message {
+    margin: 0;
+    padding-bottom: 20px;
+    color: var(--error-color);
+    display: none;
 }
 
 footer {

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style.css">
+    <title>Title</title>
+    <script src="script/main-script.js"></script>
+    <script src="script/edit-set.js"></script>
+</head>
+<body class="dark-mode">
+<header id="header" class="menu-item"></header>
+<main id="edit-set">
+    <section class="set-management">
+        <h1>Edytuj pojęcia</h1>
+        <p>Twoje pojęcia:</p>
+        <table id="existing-terms">
+            <tbody id="existing-terms-body">
+            <tr>
+                <th>Pojęcie</th>
+                <th>Definicja</th>
+            </tr>
+
+
+
+            </tbody>
+
+        </table>
+        <form class="edit-set-form">
+            <div class="input-container">
+            <div class="labeled-text-input">
+                <label for="term">Pojęcie</label>
+                <input type="text" id="term" name="term" required>
+            </div>
+            <div class="labeled-text-input">
+                <label for="definition">Definicja</label>
+                <input type="text" id="definition" name="definition" required>
+            </div>
+            </div>
+            <button type="submit" onclick="addTerm()">Dodaj pojęcie</button>
+        </form>
+    </section>
+
+    <template id="term-template">
+        <tr>
+            <td class="existing-term"></td>
+            <td class="existing-definition"></td>
+        </tr>
+    </template>
+
+</main>
+
+<footer id="footer" class="menu-item"></footer>
+</body>
+</html>

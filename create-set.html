@@ -1,10 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style.css">
     <title>Title</title>
+    <script src="script/main-script.js"></script>
+    <script src="script/create-set.js"></script>
 </head>
-<body>
+<body class="dark-mode">
+<header id="header" class="menu-item"></header>
 
+<main id="create-set">
+    <section class="set-management">
+        <h1>Stwórz zestaw</h1>
+        <form class="create-set-form">
+            <div class="labeled-text-input">
+            <label for="set-name">Nazwa zestawu</label>
+            <input type="text" id="set-name" name="set-name" required>
+            </div>
+            <div class="labeled-text-input">
+            <label for="set-description">Opis zestawu:</label>
+            <textarea id="set-description" name="set-description" rows="4" required></textarea>
+            </div>
+
+            <p id="set-name-not-specified" class="error-message">Nazwa zestawu nie może być pusta!</p>
+            <button type="button" onclick="createSet()">Dalej</button>
+        </form>
+    </section>
+</main>
+
+
+<footer id="footer" class="menu-item"></footer>
 </body>
 </html>

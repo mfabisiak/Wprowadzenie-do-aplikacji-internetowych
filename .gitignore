@@ -1,5 +1,6 @@
 .idea
 *.zip
 *.csv
+todo.txt
 
 page-template.html
