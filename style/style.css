@@ -32,6 +32,7 @@ body {
     padding: 0;
     margin: 0;
     min-height: 100vh;
+    font-family: Inter, serif;
 }
 
 .menu-item {
@@ -81,6 +82,7 @@ nav > ul > li > a {
     display: flex;
     flex-direction: row;
     gap: 20px;
+    padding-bottom: 30px;
 }
 
 form > .labeled-text-input {
@@ -88,6 +90,7 @@ form > .labeled-text-input {
     flex-direction: column;
     padding-bottom: 20px;
 }
+
 
 #set-name {
     width: 20%;
@@ -97,13 +100,13 @@ form > .labeled-text-input {
     width: 50%;
 }
 
+.set-management > table {
+    width: 40%;
+    padding-bottom: 50px;
+}
 
-
-.error-message {
-    margin: 0;
-    padding-bottom: 20px;
-    color: var(--error-color);
-    display: none;
+.set-management > table th {
+    text-align: left;
 }
 
 footer {

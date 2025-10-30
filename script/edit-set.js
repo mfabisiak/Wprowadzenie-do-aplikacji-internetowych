@@ -40,14 +40,18 @@ document.addEventListener('DOMContentLoaded',
         }
     })
 
-function addTerm() {
+document.addEventListener('submit', function addTerm() {
     event.preventDefault()
 
     let termInput = document.getElementById('term')
     let definitionInput = document.getElementById('definition')
 
-    let term = termInput.value
-    let definition = definitionInput.value
+    let term = termInput.value.trim()
+    let definition = definitionInput.value.trim()
+
+    termInput.value = term
+    definitionInput.value = definition
+
     if (term && definition) {
         printTerm(term, definition)
         termInput.value = ''
@@ -55,5 +59,5 @@ function addTerm() {
         termInput.focus()
     }
 
-}
+})
 

@@ -5,7 +5,7 @@ function isFormValid() {
 
 function createSet() {
     if (!isFormValid()) {
-        document.getElementById('set-name-not-specified').style.display = 'block';
+        return
     }
     window.location.href = 'edit-set.html'
 }
