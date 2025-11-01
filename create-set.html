@@ -6,7 +6,8 @@
     <link rel="stylesheet" href="style/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap"
+          rel="stylesheet">
     <title>Title</title>
     <script src="script/main-script.js"></script>
     <script src="script/create-set.js"></script>
@@ -19,12 +20,12 @@
         <h1>Stwórz zestaw</h1>
         <form class="create-set-form">
             <div class="labeled-text-input">
-            <label for="set-name">Nazwa zestawu</label>
-            <input type="text" id="set-name" name="set-name" required>
+                <label for="set-name">Nazwa zestawu</label>
+                <input autocomplete="off" id="set-name" name="set-name" required type="text">
             </div>
             <div class="labeled-text-input">
-            <label for="set-description">Opis zestawu:</label>
-            <textarea id="set-description" name="set-description" rows="4" required></textarea>
+                <label for="set-description">Opis zestawu:</label>
+                <textarea id="set-description" name="set-description" rows="4"></textarea>
             </div>
 
             <button type="submit" onclick="createSet()">Dalej</button>

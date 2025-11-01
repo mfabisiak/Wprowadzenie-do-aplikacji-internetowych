@@ -1,5 +1,4 @@
 let currentSet
-let termSnippet
 
 function redirectToMySets() {
     window.location.href = 'my-sets.html';
@@ -20,27 +19,22 @@ function printTerms() {
 
 }
 
-
-async function getSnippet() {
-    let snippet = await fetch('edit-set/term.html')
-    return snippet.text()
+function loadContent() {
+    let setId = localStorage.getItem('currentSetId')
+    // if (!setId) {
+    //     redirectToMySets()
+    // }
+    let sets = JSON.parse(localStorage.getItem('my_sets'))
+    currentSet = sets[setId]
+    if (currentSet['terms']) {
+        printTerms()
+    }
 }
 
-document.addEventListener('DOMContentLoaded',
-     function () {
+document.addEventListener('DOMContentLoaded', loadContent)
 
-        let setId = localStorage.getItem('currentSetId')
-        // if (!setId) {
-        //     redirectToMySets()
-        // }
-        let sets = JSON.parse(localStorage.getItem('my_sets'))
-        currentSet = sets[setId]
-        if (currentSet['terms']) {
-            printTerms()
-        }
-    })
 
-document.addEventListener('submit', function addTerm() {
+function addTerm(event) {
     event.preventDefault()
 
     let termInput = document.getElementById('term')
@@ -58,6 +52,7 @@ document.addEventListener('submit', function addTerm() {
         definitionInput.value = ''
         termInput.focus()
     }
+}
 
-})
+document.addEventListener('submit', addTerm)
 

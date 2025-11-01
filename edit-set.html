@@ -2,17 +2,18 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="style/style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap"
+          rel="stylesheet">
     <title>Title</title>
     <script src="script/main-script.js"></script>
     <script src="script/edit-set.js"></script>
 </head>
 <body class="dark-mode">
-<header id="header" class="menu-item"></header>
+<header class="menu-item" id="header"></header>
 <main id="edit-set">
     <section class="set-management">
         <h1>Edytuj pojęcia</h1>
@@ -25,20 +26,19 @@
             </tr>
 
 
-
             </tbody>
 
         </table>
         <form class="edit-set-form">
             <div class="input-container">
-            <div class="labeled-text-input">
-                <label for="term">Pojęcie</label>
-                <input type="text" id="term" name="term" required autocomplete="off">
-            </div>
-            <div class="labeled-text-input">
-                <label for="definition">Definicja</label>
-                <input type="text" id="definition" name="definition" required autocomplete="off">
-            </div>
+                <div class="labeled-text-input">
+                    <label for="term">Pojęcie</label>
+                    <input autocomplete="off" id="term" name="term" required type="text">
+                </div>
+                <div class="labeled-text-input">
+                    <label for="definition">Definicja</label>
+                    <input autocomplete="off" id="definition" name="definition" required type="text">
+                </div>
             </div>
             <button type="submit">Dodaj pojęcie</button>
         </form>
@@ -53,6 +53,6 @@
 
 </main>
 
-<footer id="footer" class="menu-item"></footer>
+<footer class="menu-item" id="footer"></footer>
 </body>
 </html>

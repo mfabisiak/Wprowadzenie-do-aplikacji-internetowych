@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     async function insertHeader() {
         let headerContent = await fetch('header.html')
         document.getElementById('header').innerHTML = await headerContent.text()
@@ -26,7 +26,6 @@ document.addEventListener("DOMContentLoaded", function() {
             document.body.style.visibility = 'visible'
         })
         .catch(error => document.body.style.visibility = 'visible')
-
 
 
 })
