@@ -1,5 +1,16 @@
 let currentSet
 
+function getSetId() {
+    return parseInt(sessionStorage.getItem('currentSetId'))
+}
+
+function getCurrentSet() {
+    const currentId = getSetId()
+    const sets = JSON.parse(localStorage.getItem('mySets'))
+    return sets[currentId]
+}
+
+
 function redirectToMySets() {
     window.location.href = 'my-sets.html';
 }
@@ -15,17 +26,18 @@ function printTerm(term, definition) {
 }
 
 function printTerms() {
+    for (let i in currentSet.terms) {
+        printTerm(currentSet.terms[i], currentSet.definitions[i])
+    }
 
 
 }
 
 function loadContent() {
-    let setId = localStorage.getItem('currentSetId')
-    // if (!setId) {
-    //     redirectToMySets()
-    // }
-    let sets = JSON.parse(localStorage.getItem('my_sets'))
-    currentSet = sets[setId]
+    if (getSetId()) {
+        redirectToMySets()
+    }
+    currentSet = getCurrentSet()
     if (currentSet['terms']) {
         printTerms()
     }
@@ -48,6 +60,8 @@ function addTerm(event) {
 
     if (term && definition) {
         printTerm(term, definition)
+        currentSet.terms.push(term)
+        currentSet.definitions.push(definition)
         termInput.value = ''
         definitionInput.value = ''
         termInput.focus()
@@ -56,3 +70,6 @@ function addTerm(event) {
 
 document.addEventListener('submit', addTerm)
 
+function saveSet() {
+
+}
