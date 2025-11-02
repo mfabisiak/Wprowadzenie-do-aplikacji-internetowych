@@ -1,15 +1,6 @@
-let currentSet
+import Set from './ClassSet.js'
 
-function getSetId() {
-    return parseInt(sessionStorage.getItem('currentSetId'))
-}
-
-function getCurrentSet() {
-    const currentId = getSetId()
-    const sets = JSON.parse(localStorage.getItem('mySets'))
-    return sets[currentId]
-}
-
+let currentSet = new Set()
 
 function redirectToMySets() {
     window.location.href = 'my-sets.html';
@@ -26,21 +17,18 @@ function printTerm(term, definition) {
 }
 
 function printTerms() {
-    for (let i in currentSet.terms) {
-        printTerm(currentSet.terms[i], currentSet.definitions[i])
+    for (let i = 0; i < currentSet.numberOfItems; i++) {
+        printTerm(...currentSet.getItem(i))
     }
 
 
 }
 
 function loadContent() {
-    if (getSetId()) {
+    if (!currentSet.isValid()) {
         redirectToMySets()
     }
-    currentSet = getCurrentSet()
-    if (currentSet['terms']) {
-        printTerms()
-    }
+    printTerms()
 }
 
 document.addEventListener('DOMContentLoaded', loadContent)
@@ -60,8 +48,7 @@ function addTerm(event) {
 
     if (term && definition) {
         printTerm(term, definition)
-        currentSet.terms.push(term)
-        currentSet.definitions.push(definition)
+        currentSet.appendItem(term, definition)
         termInput.value = ''
         definitionInput.value = ''
         termInput.focus()
@@ -71,5 +58,7 @@ function addTerm(event) {
 document.addEventListener('submit', addTerm)
 
 function saveSet() {
-
+    Set.saveToStorage()
 }
+
+document.getElementById('save-set').addEventListener('click', saveSet)
