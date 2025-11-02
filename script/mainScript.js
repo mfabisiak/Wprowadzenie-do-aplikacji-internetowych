@@ -27,25 +27,12 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .catch(error => document.body.style.visibility = 'visible')
 
-    if (!setsInStorage())
-        initStorage()
 })
-
-function initStorage() {
-    let sets = {'ids': [0,]}
-    localStorage.setItem('mySets', JSON.stringify(sets))
-}
-
-function setsInStorage() {
-    return JSON.parse(localStorage.getItem('mySets'))
-}
-
 
 function setTheme(theme) {
     document.body.className = theme
     localStorage.setItem('theme', theme)
 }
-
 
 function changeTheme() {
     let newTheme = document.body.className === "light-mode" ? "dark-mode" : "light-mode"

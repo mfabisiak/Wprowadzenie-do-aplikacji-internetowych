@@ -1,4 +1,4 @@
-import Set from './ClassSet.js'
+import Sets from './ClassSet.js'
 
 let currentSet
 
@@ -23,8 +23,10 @@ function printTerms() {
 }
 
 function loadContent() {
+    Sets.retrieveFromStorage()
+
     try {
-        currentSet = new Set()
+        currentSet = Sets.getCurrentSet()
     } catch {
         redirectToMySets()
     }
@@ -58,8 +60,8 @@ function addTerm(event) {
 document.addEventListener('submit', addTerm)
 
 function saveSet() {
-    Set.saveToStorage()
-
+    Sets.saveToStorage()
+    window.location.href = './my-sets.html'
 }
 
 document.getElementById('save-set').addEventListener('click', saveSet)
