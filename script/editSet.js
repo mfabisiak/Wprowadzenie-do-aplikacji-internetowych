@@ -1,6 +1,6 @@
 import Set from './ClassSet.js'
 
-let currentSet = new Set()
+let currentSet
 
 function redirectToMySets() {
     window.location.href = 'my-sets.html';
@@ -20,12 +20,12 @@ function printTerms() {
     for (let i = 0; i < currentSet.numberOfItems; i++) {
         printTerm(...currentSet.getItem(i))
     }
-
-
 }
 
 function loadContent() {
-    if (!currentSet.isValid()) {
+    try {
+        currentSet = new Set()
+    } catch {
         redirectToMySets()
     }
     printTerms()
@@ -59,6 +59,7 @@ document.addEventListener('submit', addTerm)
 
 function saveSet() {
     Set.saveToStorage()
+
 }
 
 document.getElementById('save-set').addEventListener('click', saveSet)

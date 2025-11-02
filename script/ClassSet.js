@@ -1,13 +1,6 @@
 export default class Set {
     static sets = JSON.parse(localStorage.getItem('mySets'))
 
-    constructor(setId = null) {
-        if (setId == null)
-            setId = Set.getSessionSetId()
-        this.setContent = Set.getSetContent(setId)
-        this.numberOfItems = this.setContent.terms.length
-    }
-
     static getSessionSetId() {
         return parseInt(sessionStorage.getItem('currentSetId'))
     }
@@ -16,12 +9,15 @@ export default class Set {
         return this.sets[setId]
     }
 
-    static saveToStorage() {
-        localStorage.setItem('mySets', JSON.stringify(Set.sets))
+    constructor(setId = null) {
+        if (setId == null)
+            setId = Set.getSessionSetId()
+        this.setContent = Set.getSetContent(setId)
+        this.numberOfItems = this.setContent.terms.length
     }
 
-    isValid() {
-        return this.setContent != null && this.setContent.terms != null && this.setContent.definitions != null
+    static saveToStorage() {
+        localStorage.setItem('mySets', JSON.stringify(Set.sets))
     }
 
     getItem(index) {
@@ -43,6 +39,8 @@ export default class Set {
     removeItem(index) {
         this.setContent.terms.splice(index, 1)
         this.setContent.definitions.splice(index, 1)
+        this.numberOfItems -= 1
+        return this.numberOfItems
     }
 
 }
