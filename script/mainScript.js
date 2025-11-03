@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+async function loadContent() {
     async function insertHeader() {
         let headerContent = await fetch('header.html')
         document.getElementById('header').innerHTML = await headerContent.text()
@@ -9,9 +9,6 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById('footer').innerHTML = await footerContent.text()
     }
 
-    insertHeader().catch(error => console.log(error))
-    insertFooter().catch(error => console.log(error))
-
     let theme = localStorage.getItem('theme')
 
     if (!theme) {
@@ -21,13 +18,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     setTheme(theme)
 
-    Promise.all([insertHeader(), insertFooter()])
-        .then(() => {
-            document.body.style.visibility = 'visible'
-        })
-        .catch(error => document.body.style.visibility = 'visible')
+    try {
+        await insertHeader()
+        await insertFooter()
+    } catch (error) {
+        console.log(error)
+    }
 
-})
+    document.body.style.visibility = 'visible'
+}
+
+document.addEventListener("DOMContentLoaded", loadContent)
+
 
 function setTheme(theme) {
     document.body.className = theme
