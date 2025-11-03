@@ -1,6 +1,10 @@
 export default class Sets {
     static sets
 
+    static {
+        this.retrieveFromStorage()
+    }
+
     static initialize() {
         this.sets = {'ids': [], 'currentId': 0}
         this.saveToStorage()
@@ -40,12 +44,19 @@ export default class Sets {
     static getCurrentSet() {
         return new Set(this.getSessionSetId())
     }
+
+    static* [Symbol.iterator]() {
+        for (let id of this.sets.ids) {
+            yield new Set(id)
+        }
+    }
 }
 
 export class Set {
-    constructor(setId = null) {
+    constructor(setId) {
         this.setContent = Sets.getSetContent(setId)
         this.numberOfItems = this.setContent.terms.length
+        this.id = setId
     }
 
     getItem(index) {
@@ -73,4 +84,17 @@ export class Set {
         Sets.saveToStorage()
     }
 
+    getName() {
+        return this.setContent.name
+    }
+
+    getDescription() {
+        return this.setContent.description
+    }
+
+    * [Symbol.iterator]() {
+        for (let i = 0; i < this.numberOfItems; i++) {
+            yield this.getItem(i)
+        }
+    }
 }

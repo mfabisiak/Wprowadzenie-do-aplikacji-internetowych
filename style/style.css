@@ -114,3 +114,24 @@ footer {
     width: 100%;
     padding: 15px;
 }
+
+.tile-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 30px;
+    justify-content: center;
+}
+
+.set-tile {
+    width: 30vw;
+    background-color: var(--menu-background-color);
+    color: var(--menu-text-color);
+    border-radius: 8px;
+    padding: 15px;
+}
+
+.set-tile:hover {
+    cursor: pointer;
+}

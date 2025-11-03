@@ -7,14 +7,14 @@ function redirectToMySets() {
 }
 
 function removeTerm(event) {
-    const itemIndex = parseInt(event.target.value)
+    const itemIndex = parseInt(event.currentTarget.value)
     currentSet.removeItem(itemIndex)
     window.location.reload()
 }
 
 function editTerm(event) {
-    const itemIndex = parseInt(event.target.value)
-    const editedRow = event.target.parentNode.parentNode
+    const itemIndex = parseInt(event.currentTarget.value)
+    const editedRow = event.currentTarget.parentNode.parentNode
     const parent = editedRow.parentNode
 
     const template = document.getElementById('edit-term-template')
@@ -84,7 +84,7 @@ function printTerms() {
 }
 
 function loadContent() {
-    Sets.retrieveFromStorage()
+    // Sets.retrieveFromStorage()
 
     try {
         currentSet = Sets.getCurrentSet()
