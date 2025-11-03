@@ -56,19 +56,21 @@ export class Set {
         this.setContent.terms.push(term)
         this.setContent.definitions.push(definition)
         this.numberOfItems += 1
-        return this.numberOfItems
+        Sets.saveToStorage()
+        return this.numberOfItems - 1
     }
 
-    modifyItem(index, term, definition) {
-        this.setContent.terms[index] = term
-        this.setContent.definitions[index] = definition
+    modifyItem(index, newTerm, newDefinition) {
+        this.setContent.terms[index] = newTerm
+        this.setContent.definitions[index] = newDefinition
+        Sets.saveToStorage()
     }
 
     removeItem(index) {
         this.setContent.terms.splice(index, 1)
         this.setContent.definitions.splice(index, 1)
         this.numberOfItems -= 1
-        return this.numberOfItems
+        Sets.saveToStorage()
     }
 
 }

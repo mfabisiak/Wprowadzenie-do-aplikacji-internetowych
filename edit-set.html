@@ -53,6 +53,24 @@
         <tr>
             <td class="existing-term"></td>
             <td class="existing-definition"></td>
+            <td class="term-editing-buttons-container">
+                <button class="edit-term">Edytuj</button>
+                <button class="delete-term">Usuń</button>
+            </td>
+        </tr>
+    </template>
+    <template id="edit-term-template">
+        <tr>
+            <td class="existing-term">
+                <input aria-label="Edytuj pojęcie" autocomplete="off" id="edit-term" required type="text">
+            </td>
+            <td>
+                <input aria-label="Edytuj definicję" autocomplete="off" id="edit-definition" required type="text">
+            </td>
+            <td>
+                <button class="save-changes" type="button">Zapisz</button>
+                <button class="discard-changes" type="button">Odrzuć</button>
+            </td>
         </tr>
     </template>
 

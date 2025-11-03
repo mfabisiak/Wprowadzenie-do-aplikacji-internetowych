@@ -6,19 +6,80 @@ function redirectToMySets() {
     window.location.href = 'my-sets.html';
 }
 
-function printTerm(term, definition) {
+function removeTerm(event) {
+    const itemIndex = parseInt(event.target.value)
+    currentSet.removeItem(itemIndex)
+    window.location.reload()
+}
+
+function editTerm(event) {
+    const itemIndex = parseInt(event.target.value)
+    const editedRow = event.target.parentNode.parentNode
+    const parent = editedRow.parentNode
+
+    const template = document.getElementById('edit-term-template')
+    let newRow = template.content.cloneNode(true).firstElementChild
+
+    let [termValue, definitionValue] = currentSet.getItem(itemIndex)
+
+    parent.replaceChild(newRow, editedRow)
+
+    const editTermField = document.getElementById('edit-term')
+    const editDefinitionField = document.getElementById('edit-definition')
+
+    editTermField.value = termValue
+    editDefinitionField.value = definitionValue
+
+    const buttonContainers = document.getElementsByClassName('term-editing-buttons-container')
+
+    for (let buttonContainer of buttonContainers) {
+        buttonContainer.style.visibility = 'hidden'
+    }
+
+    const saveButton = newRow.querySelector('.save-changes')
+    const discardButton = newRow.querySelector('.discard-changes')
+
+    function saveChanges(event) {
+        event.preventDefault()
+
+        const termValue = editTermField.value.trim()
+        const definitionValue = editDefinitionField.value.trim()
+
+        if (termValue && definitionValue) {
+            currentSet.modifyItem(itemIndex, termValue, definitionValue)
+            window.location.reload()
+        }
+    }
+
+    saveButton.addEventListener('click', saveChanges)
+    discardButton.addEventListener('click', () => window.location.reload())
+
+
+}
+
+function printTerm(term, definition, index) {
     const template = document.getElementById('term-template');
     const newRow = template.content.cloneNode(true);
 
     newRow.querySelector('.existing-term').textContent = term;
     newRow.querySelector('.existing-definition').textContent = definition;
 
+
+    let editButton = newRow.querySelector('.edit-term')
+    let deleteButton = newRow.querySelector('.delete-term')
+
+    editButton.value = index.toString()
+    deleteButton.value = index.toString()
+
+    editButton.addEventListener('click', editTerm)
+    deleteButton.addEventListener('click', removeTerm)
+
     document.getElementById('existing-terms-body').appendChild(newRow);
 }
 
 function printTerms() {
     for (let i = 0; i < currentSet.numberOfItems; i++) {
-        printTerm(...currentSet.getItem(i))
+        printTerm(...currentSet.getItem(i), i)
     }
 }
 
@@ -49,8 +110,7 @@ function addTerm(event) {
     definitionInput.value = definition
 
     if (term && definition) {
-        printTerm(term, definition)
-        currentSet.appendItem(term, definition)
+        printTerm(term, definition, currentSet.appendItem(term, definition))
         termInput.value = ''
         definitionInput.value = ''
         termInput.focus()
@@ -60,7 +120,6 @@ function addTerm(event) {
 document.addEventListener('submit', addTerm)
 
 function saveSet() {
-    Sets.saveToStorage()
     window.location.href = './my-sets.html'
 }
 
