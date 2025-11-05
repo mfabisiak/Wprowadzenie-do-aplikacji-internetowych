@@ -72,6 +72,16 @@ export class SetInstance {
         return [this.setContent.terms[index], this.setContent.definitions[index]]
     }
 
+    changeName(newName) {
+        this.setContent.name = newName
+        Sets.saveToStorage()
+    }
+
+    changeDescription(newDescription) {
+        this.setContent.description = newDescription
+        Sets.saveToStorage()
+    }
+
     appendItem(term, definition) {
         this.setContent.terms.push(term)
         this.setContent.definitions.push(definition)

@@ -99,6 +99,9 @@ function loadContent() {
     } catch {
         redirectToMySets()
     }
+    document.getElementById('set-name-header').textContent = currentSet.getName()
+    document.getElementById('set-name').value = currentSet.getName()
+    document.getElementById('set-description').value = currentSet.getDescription()
     printTerms()
 }
 
@@ -131,6 +134,19 @@ function removeSet() {
     window.location.href = './my-sets.html'
 }
 
+function updateSetName(event) {
+    if (!event.currentTarget.checkValidity())
+        return
+    const newName = event.currentTarget.value.trim()
+    document.getElementById('set-name-header').textContent = newName
+    currentSet.changeName(newName)
+}
+
+function updateSetDescription(event) {
+    const newDescription = event.currentTarget.value.trim()
+    currentSet.changeDescription(newDescription)
+}
+
 document.addEventListener('DOMContentLoaded', loadContent)
 
 document.addEventListener('submit', addTerm)
@@ -138,3 +154,7 @@ document.addEventListener('submit', addTerm)
 document.getElementById('save-set').addEventListener('click', saveSet)
 
 document.getElementById('remove-set').addEventListener('click', removeSet)
+
+document.getElementById('set-name').addEventListener('input', updateSetName)
+
+document.getElementById('set-description').addEventListener('input', updateSetDescription)
