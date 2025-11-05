@@ -29,6 +29,15 @@ export default class Sets {
         this.saveToStorage()
     }
 
+    static removeSet(set) {
+        const idToBeRemoved = set.id
+        delete this.sets[idToBeRemoved]
+        this.sets.ids.splice(this.sets.ids.indexOf(idToBeRemoved), 1)
+        sessionStorage.removeItem('currentSetId')
+        this.saveToStorage()
+
+    }
+
     static getSessionSetId() {
         return parseInt(sessionStorage.getItem('currentSetId'))
     }
@@ -42,17 +51,17 @@ export default class Sets {
     }
 
     static getCurrentSet() {
-        return new Set(this.getSessionSetId())
+        return new SetInstance(this.getSessionSetId())
     }
 
     static* [Symbol.iterator]() {
         for (let id of this.sets.ids) {
-            yield new Set(id)
+            yield new SetInstance(id)
         }
     }
 }
 
-export class Set {
+export class SetInstance {
     constructor(setId) {
         this.setContent = Sets.getSetContent(setId)
         this.numberOfItems = this.setContent.terms.length

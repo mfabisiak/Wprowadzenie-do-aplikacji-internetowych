@@ -102,9 +102,6 @@ function loadContent() {
     printTerms()
 }
 
-document.addEventListener('DOMContentLoaded', loadContent)
-
-
 function addTerm(event) {
     event.preventDefault()
 
@@ -125,10 +122,19 @@ function addTerm(event) {
     }
 }
 
-document.addEventListener('submit', addTerm)
-
 function saveSet() {
     window.location.href = './my-sets.html'
 }
 
+function removeSet() {
+    Sets.removeSet(currentSet)
+    window.location.href = './my-sets.html'
+}
+
+document.addEventListener('DOMContentLoaded', loadContent)
+
+document.addEventListener('submit', addTerm)
+
 document.getElementById('save-set').addEventListener('click', saveSet)
+
+document.getElementById('remove-set').addEventListener('click', removeSet)
