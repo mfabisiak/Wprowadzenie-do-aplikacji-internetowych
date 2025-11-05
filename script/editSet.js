@@ -12,6 +12,14 @@ function removeTerm(event) {
     window.location.reload()
 }
 
+function reloadContent() {
+    const termContainer = document.getElementById('existing-terms-body')
+    while (termContainer.children.length > 1)
+        termContainer.removeChild(termContainer.lastChild)
+
+    loadContent()
+}
+
 function editTerm(event) {
     const itemIndex = parseInt(event.currentTarget.value)
     const editedRow = event.currentTarget.parentNode.parentNode
@@ -47,12 +55,12 @@ function editTerm(event) {
 
         if (termValue && definitionValue) {
             currentSet.modifyItem(itemIndex, termValue, definitionValue)
-            window.location.reload()
+            reloadContent()
         }
     }
 
     saveButton.addEventListener('click', saveChanges)
-    discardButton.addEventListener('click', () => window.location.reload())
+    discardButton.addEventListener('click', () => reloadContent())
 
 
 }
