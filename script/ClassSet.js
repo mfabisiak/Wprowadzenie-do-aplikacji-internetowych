@@ -24,7 +24,7 @@ export default class Sets {
         const id = this.sets.currentId
         this.sets.currentId += 1
         this.sets.ids.push(id)
-        this.sets[id] = {'terms': [], 'definitions': [], 'name': name, 'description': description}
+        this.sets[id] = {'items': [], 'name': name, 'description': description}
         this.setSessionId(id)
         this.saveToStorage()
     }
@@ -64,12 +64,13 @@ export default class Sets {
 export class SetInstance {
     constructor(setId) {
         this.setContent = Sets.getSetContent(setId)
-        this.numberOfItems = this.setContent.terms.length
+        console.log(this.setContent)
+        this.numberOfItems = this.setContent.items.length
         this.id = setId
     }
 
     getItem(index) {
-        return [this.setContent.terms[index], this.setContent.definitions[index]]
+        return [this.setContent.items[index].term, this.setContent.items[index].term]
     }
 
     changeName(newName) {
@@ -83,22 +84,21 @@ export class SetInstance {
     }
 
     appendItem(term, definition) {
-        this.setContent.terms.push(term)
-        this.setContent.definitions.push(definition)
+        const newItem = {'term': term, 'definition': definition, 'isStarred': false}
+        this.setContent.items.push(newItem)
         this.numberOfItems += 1
         Sets.saveToStorage()
         return this.numberOfItems - 1
     }
 
     modifyItem(index, newTerm, newDefinition) {
-        this.setContent.terms[index] = newTerm
-        this.setContent.definitions[index] = newDefinition
+        this.setContent.items[index].term = newTerm
+        this.setContent.items[index].definition = newDefinition
         Sets.saveToStorage()
     }
 
     removeItem(index) {
-        this.setContent.terms.splice(index, 1)
-        this.setContent.definitions.splice(index, 1)
+        this.setContent.items.splice(index, 1)
         this.numberOfItems -= 1
         Sets.saveToStorage()
     }
