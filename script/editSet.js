@@ -65,7 +65,7 @@ function editTerm(event) {
 
 }
 
-function printTerm(term, definition, index) {
+function printTerm(term, definition, isStarred, index) {
     const template = document.getElementById('term-template');
     const newRow = template.content.cloneNode(true);
 
@@ -73,14 +73,34 @@ function printTerm(term, definition, index) {
     newRow.querySelector('.existing-definition').textContent = definition;
 
 
-    let editButton = newRow.querySelector('.edit-term')
-    let deleteButton = newRow.querySelector('.delete-term')
+    const editButton = newRow.querySelector('.edit-term')
+    const deleteButton = newRow.querySelector('.delete-term')
+    const starCheckbox = newRow.querySelector('.is-starred-checkbox')
 
     editButton.value = index.toString()
     deleteButton.value = index.toString()
+    starCheckbox.value = index.toString()
+
+    starCheckbox.checked = isStarred
+
+    function changeStarredStatus(event) {
+        const status = event.currentTarget.checked
+        const index = parseInt(event.currentTarget.value)
+
+        switch (status) {
+            case true:
+                currentSet.starItem(index)
+                break
+            case false:
+                currentSet.unstarItem(index)
+                break
+        }
+    }
 
     editButton.addEventListener('click', editTerm)
     deleteButton.addEventListener('click', removeTerm)
+
+    starCheckbox.addEventListener('input', changeStarredStatus)
 
     document.getElementById('existing-terms-body').appendChild(newRow);
 }
@@ -118,7 +138,7 @@ function addTerm(event) {
     definitionInput.value = definition
 
     if (term && definition) {
-        printTerm(term, definition, currentSet.appendItem(term, definition))
+        printTerm(term, definition, false, currentSet.appendItem(term, definition))
         termInput.value = ''
         definitionInput.value = ''
         termInput.focus()

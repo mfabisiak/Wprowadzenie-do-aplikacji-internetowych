@@ -64,13 +64,12 @@ export default class Sets {
 export class SetInstance {
     constructor(setId) {
         this.setContent = Sets.getSetContent(setId)
-        console.log(this.setContent)
         this.numberOfItems = this.setContent.items.length
         this.id = setId
     }
 
     getItem(index) {
-        return [this.setContent.items[index].term, this.setContent.items[index].term]
+        return [this.setContent.items[index].term, this.setContent.items[index].term, this.setContent.items[index].isStarred]
     }
 
     changeName(newName) {
@@ -109,6 +108,16 @@ export class SetInstance {
 
     getDescription() {
         return this.setContent.description
+    }
+
+    starItem(index) {
+        this.setContent.items[index].isStarred = true
+        Sets.saveToStorage()
+    }
+
+    unstarItem(index) {
+        this.setContent.items[index].isStarred = false
+        Sets.saveToStorage()
     }
 
     * [Symbol.iterator]() {
