@@ -54,6 +54,23 @@ export default class Sets {
         return new SetInstance(this.getSessionSetId())
     }
 
+    static instantiateLearningSet(...params) {
+        const learningSet = new LearningSet(...params)
+        learningSet.saveToStorage()
+        return learningSet
+    }
+
+    static getLearningSet() {
+        const storageObject = JSON.parse(sessionStorage.getItem('learningSet'))
+        return new LearningSet(
+            storageObject.setId,
+            storageObject.caseSensitivity,
+            storageObject.rewriteWrongAnswers,
+            storageObject.learnStarred,
+            storageObject.learningQueue
+        )
+    }
+
     static* [Symbol.iterator]() {
         for (let id of this.sets.ids) {
             yield new SetInstance(id)
@@ -128,14 +145,20 @@ export class SetInstance {
 }
 
 class LearningSet extends SetInstance {
-    constructor(setId, answerWith, caseSensitivity, rewriteWrongAnswers, learnStarred) {
+    constructor(setId, answerWith, caseSensitivity, rewriteWrongAnswers, learnStarred, learningQueue = null) {
         super(setId);
         this.answerWith = answerWith
         this.caseSensitivity = caseSensitivity
         this.rewriteWrongAnswers = rewriteWrongAnswers
         this.learnStarred = learnStarred
-        this.learningQueue = this.itemsToLearn()
-        this.shuffleItems()
+
+        if (!learningQueue) {
+            this.learningQueue = this.itemsToLearn()
+            this.shuffleItems()
+        } else {
+            this.learningQueue = learningQueue
+        }
+
         this.currentItem = {}
     }
 
@@ -176,5 +199,17 @@ class LearningSet extends SetInstance {
             answer = answer.toLowerCase()
         }
         return answer.trim() === expectedAnswer.trim()
+    }
+
+    saveToStorage() {
+        const storageObject = {
+            'setId': this.setId,
+            'answerWith': this.answerWith,
+            'caseSensitivity': this.caseSensitivity,
+            'rewriteWrongAnswers': this.rewriteWrongAnswers,
+            'learnStarred': this.learnStarred,
+            'learningQueue': this.learningQueue
+        }
+        sessionStorage.setItem('learningSet', JSON.stringify(storageObject))
     }
 }
