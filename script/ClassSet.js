@@ -126,3 +126,55 @@ export class SetInstance {
         }
     }
 }
+
+class LearningSet extends SetInstance {
+    constructor(setId, answerWith, caseSensitivity, rewriteWrongAnswers, learnStarred) {
+        super(setId);
+        this.answerWith = answerWith
+        this.caseSensitivity = caseSensitivity
+        this.rewriteWrongAnswers = rewriteWrongAnswers
+        this.learnStarred = learnStarred
+        this.learningQueue = this.itemsToLearn()
+        this.shuffleItems()
+        this.currentItem = {}
+    }
+
+    static getItem(item) {
+        return [item.question, item.answer]
+    }
+
+    itemsToLearn() {
+        let filteredItems = this.setContent.items
+        if (this.learnStarred) {
+            filteredItems = filteredItems.filter(x => x.isStarred)
+        }
+
+        switch (this.answerWith) {
+            case 'term':
+                return filteredItems.map(x => ({'question': x.definition, 'answer': x.term}))
+            case 'definition':
+                return filteredItems.map(x => ({'question': x.term, 'answer': x.definition}))
+        }
+    }
+
+    shuffleItems() {
+        this.learningQueue = this.learningQueue
+            .map(x => ({'value': x, 'random': Math.random()}))
+            .sort((a, b) => a.random - b.random)
+            .map(x => x.value)
+    }
+
+    getNext() {
+        this.currentItem = this.learningQueue.shift()
+        return LearningSet.getItem(this.currentItem)
+    }
+
+    validateAnswer(answer) {
+        let expectedAnswer = this.currentItem.answer
+        if (!this.caseSensitivity) {
+            expectedAnswer.toLowerCase()
+            answer = answer.toLowerCase()
+        }
+        return answer.trim() === expectedAnswer.trim()
+    }
+}
