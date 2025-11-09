@@ -18,13 +18,17 @@ function loadContent() {
 
 }
 
-function saveLearningSettings() {
+function saveLearningSettings(event) {
+    event.preventDefault()
+    
     const answerWith = document.getElementById('answer-with').value
     const caseSensitivity = document.getElementById('case-sensitivity').checked
     const rewriteWrongAnswers = document.getElementById('rewrite-wrong-answers').checked
     const learnStarred = document.getElementById('learn-starred').checked
 
-    const learningSet = Sets.instantiateLearningSet(currentSet.id, answerWith, caseSensitivity, rewriteWrongAnswers, learnStarred)
-
-    console.log(learningSet)
+    Sets.instantiateLearningSet(currentSet.id, answerWith, caseSensitivity, rewriteWrongAnswers, learnStarred)
 }
+
+document.addEventListener('DOMContentLoaded', loadContent)
+
+document.addEventListener('submit', saveLearningSettings)
