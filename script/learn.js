@@ -9,12 +9,22 @@ function redirectToMySets() {
 function flushDynamicContent() {
     const parent = document.querySelector('.set-management')
     const childToBeRemoved = parent.lastElementChild
-    console.log(childToBeRemoved)
 
     parent.removeChild(childToBeRemoved)
 }
 
-function handleQuestion(currentQuestion, currentAnswer) {
+function updateStats() {
+    const remaining = document.getElementById('remaining')
+    const numberOfCorrectAnswers = document.getElementById('correct-answers')
+    const numberOfWrongAnswers = document.getElementById('wrong-answers')
+
+    remaining.textContent = currentSet.numberOfRemainingItems().toString()
+    numberOfCorrectAnswers.textContent = currentSet.numberOfCorrectAnswers().toString()
+    numberOfWrongAnswers.textContent = currentSet.numberOfWrongAnswers().toString()
+
+}
+
+function handleQuestion(currentQuestion) {
     const parent = document.querySelector('.set-management')
     const template = document.getElementById('question')
     const dynamicContent = template.content.cloneNode(true)
@@ -26,22 +36,55 @@ function handleQuestion(currentQuestion, currentAnswer) {
 
     parent.appendChild(dynamicContent)
 
+    function skipQuestion() {
+        skipButton.removeEventListener('click', skipButton)
+
+        return ''
+    }
+
     function checkAnswer(event) {
         event.preventDefault()
 
         const answer = document.getElementById('answer').value
-        const isValid = currentSet.validateAnswer(answer)
-        console.log(isValid)
+
+        document.removeEventListener('submit', checkAnswer)
+
+        return answer
+    }
+
+    const submitPromise = new Promise((resolve) => {
+        document.addEventListener('submit', (event) => {
+            const ans = checkAnswer(event)
+            resolve(ans)
+        })
+    })
+
+    const skipPromise = new Promise((resolve) => {
+        skipButton.addEventListener('click', () => {
+            const ans = skipQuestion()
+            resolve(ans)
+        })
+    })
+
+    return Promise.any([submitPromise, skipPromise])
+}
+
+async function learn() {
+    while (currentSet.numberOfRemainingItems() > 0) {
+        let [question, answer] = currentSet.getNext()
+        const userAnswer = await handleQuestion(question)
 
         flushDynamicContent()
 
-        document.removeEventListener('submit', checkAnswer)
-    }
+        const isValid = currentSet.validateAnswer(userAnswer)
 
-    document.addEventListener('submit', checkAnswer)
+        updateStats()
+
+        console.log(isValid)
+    }
 }
 
-function loadContent() {
+async function loadContent() {
     try {
         currentSet = Sets.getLearningSet()
     } catch {
@@ -49,16 +92,13 @@ function loadContent() {
     }
 
     const setName = document.getElementById('set-name')
-    const remaining = document.getElementById('remaining')
-    const numberOfCorrectAnswers = document.getElementById('correct-answers')
-    const numberOfWrongAnswers = document.getElementById('wrong-answers')
+
 
     setName.textContent = currentSet.getName()
-    remaining.textContent = currentSet.numberOfRemainingItems().toString()
-    numberOfCorrectAnswers.textContent = '0'
-    numberOfWrongAnswers.textContent = '0'
 
-    handleQuestion(...currentSet.getNext())
+    updateStats()
+
+    await learn()
 }
 
 document.addEventListener('DOMContentLoaded', loadContent)

@@ -68,7 +68,9 @@ export default class Sets {
             storageObject.caseSensitivity,
             storageObject.retypeWrongAnswers,
             storageObject.learnStarred,
-            storageObject.learningQueue
+            storageObject.learningQueue,
+            storageObject.correctAnswers,
+            storageObject.wrongAnswers
         )
     }
 
@@ -146,9 +148,8 @@ export class SetInstance {
 }
 
 class LearningSet extends SetInstance {
-    constructor(setId, answerWith, caseSensitivity, retypeWrongAnswers, learnStarred, learningQueue = null) {
+    constructor(setId, answerWith, caseSensitivity, retypeWrongAnswers, learnStarred, learningQueue = null, correctAnswers, wrongAnswers) {
         super(setId)
-        console.log(this.getName())
         this.answerWith = answerWith
         this.caseSensitivity = caseSensitivity
         this.retypeWrongAnswers = retypeWrongAnswers
@@ -156,9 +157,13 @@ class LearningSet extends SetInstance {
 
         if (!learningQueue) {
             this.learningQueue = this.itemsToLearn()
-            this.shuffleItems()
+            this.shuffleLearningQueue()
+            this.correctAnswers = []
+            this.wrongAnswers = []
         } else {
             this.learningQueue = learningQueue
+            this.correctAnswers = correctAnswers
+            this.wrongAnswers = wrongAnswers
         }
 
         this.currentItem = {}
@@ -182,7 +187,7 @@ class LearningSet extends SetInstance {
         }
     }
 
-    shuffleItems() {
+    shuffleLearningQueue() {
         this.learningQueue = this.learningQueue
             .map(x => ({'value': x, 'random': Math.random()}))
             .sort((a, b) => a.random - b.random)
@@ -193,9 +198,25 @@ class LearningSet extends SetInstance {
         return this.learningQueue.length
     }
 
+    numberOfCorrectAnswers() {
+        return this.correctAnswers.length
+    }
+
+    numberOfWrongAnswers() {
+        return this.wrongAnswers.length
+    }
+
     getNext() {
         this.currentItem = this.learningQueue.shift()
         return LearningSet.getItem(this.currentItem)
+    }
+
+    appendCorrect() {
+        this.correctAnswers.push(this.currentItem)
+    }
+
+    appendWrong() {
+        this.wrongAnswers.push(this.currentItem)
     }
 
     validateAnswer(answer) {
@@ -204,7 +225,13 @@ class LearningSet extends SetInstance {
             expectedAnswer.toLowerCase()
             answer = answer.toLowerCase()
         }
-        return answer.trim() === expectedAnswer.trim()
+        const isValid = answer.trim() === expectedAnswer.trim()
+        if (isValid) {
+            this.appendCorrect()
+        } else {
+            this.appendWrong()
+        }
+        return isValid
     }
 
     saveToStorage() {
@@ -214,9 +241,10 @@ class LearningSet extends SetInstance {
             'caseSensitivity': this.caseSensitivity,
             'retypeWrongAnswers': this.retypeWrongAnswers,
             'learnStarred': this.learnStarred,
-            'learningQueue': this.learningQueue
+            'learningQueue': this.learningQueue,
+            'correctAnswers': this.correctAnswers,
+            'wrongAnswers': this.wrongAnswers
         }
-        console.log(storageObject)
         sessionStorage.setItem('learningSet', JSON.stringify(storageObject))
     }
 }
