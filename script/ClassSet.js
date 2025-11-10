@@ -64,6 +64,7 @@ export default class Sets {
         const storageObject = JSON.parse(sessionStorage.getItem('learningSet'))
         return new LearningSet(
             storageObject.setId,
+            storageObject.answerWith,
             storageObject.caseSensitivity,
             storageObject.retypeWrongAnswers,
             storageObject.learnStarred,
@@ -86,7 +87,7 @@ export class SetInstance {
     }
 
     getItem(index) {
-        return [this.setContent.items[index].term, this.setContent.items[index].term, this.setContent.items[index].isStarred]
+        return [this.setContent.items[index].term, this.setContent.items[index].definition, this.setContent.items[index].isStarred]
     }
 
     changeName(newName) {
@@ -146,7 +147,8 @@ export class SetInstance {
 
 class LearningSet extends SetInstance {
     constructor(setId, answerWith, caseSensitivity, retypeWrongAnswers, learnStarred, learningQueue = null) {
-        super(setId);
+        super(setId)
+        console.log(this.getName())
         this.answerWith = answerWith
         this.caseSensitivity = caseSensitivity
         this.retypeWrongAnswers = retypeWrongAnswers
@@ -187,6 +189,10 @@ class LearningSet extends SetInstance {
             .map(x => x.value)
     }
 
+    numberOfRemainingItems() {
+        return this.learningQueue.length
+    }
+
     getNext() {
         this.currentItem = this.learningQueue.shift()
         return LearningSet.getItem(this.currentItem)
@@ -203,13 +209,14 @@ class LearningSet extends SetInstance {
 
     saveToStorage() {
         const storageObject = {
-            'setId': this.setId,
+            'setId': this.id,
             'answerWith': this.answerWith,
             'caseSensitivity': this.caseSensitivity,
             'retypeWrongAnswers': this.retypeWrongAnswers,
             'learnStarred': this.learnStarred,
             'learningQueue': this.learningQueue
         }
+        console.log(storageObject)
         sessionStorage.setItem('learningSet', JSON.stringify(storageObject))
     }
 }

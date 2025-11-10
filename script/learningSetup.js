@@ -27,6 +27,8 @@ function saveLearningSettings(event) {
     const learnStarred = document.getElementById('learn-starred').checked
 
     Sets.instantiateLearningSet(currentSet.id, answerWith, caseSensitivity, retypeWrongAnswers, learnStarred)
+
+    window.location.href = './learn.html'
 }
 
 document.addEventListener('DOMContentLoaded', loadContent)
