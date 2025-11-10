@@ -65,7 +65,7 @@ nav > ul > li > a {
     font-weight: bold;
 }
 
-#create-set, #edit-set, #learning-setup {
+#create-set, #edit-set, #learning-setup, #learn {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -143,4 +143,28 @@ footer {
 .set-management a {
     text-decoration: none;
     color: var(--menu-text-color);
+}
+
+.progress {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.question-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.wrong-answer-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.single-submit-button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
 }

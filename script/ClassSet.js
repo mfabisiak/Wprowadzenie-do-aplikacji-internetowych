@@ -65,7 +65,7 @@ export default class Sets {
         return new LearningSet(
             storageObject.setId,
             storageObject.caseSensitivity,
-            storageObject.rewriteWrongAnswers,
+            storageObject.retypeWrongAnswers,
             storageObject.learnStarred,
             storageObject.learningQueue
         )
@@ -145,11 +145,11 @@ export class SetInstance {
 }
 
 class LearningSet extends SetInstance {
-    constructor(setId, answerWith, caseSensitivity, rewriteWrongAnswers, learnStarred, learningQueue = null) {
+    constructor(setId, answerWith, caseSensitivity, retypeWrongAnswers, learnStarred, learningQueue = null) {
         super(setId);
         this.answerWith = answerWith
         this.caseSensitivity = caseSensitivity
-        this.rewriteWrongAnswers = rewriteWrongAnswers
+        this.retypeWrongAnswers = retypeWrongAnswers
         this.learnStarred = learnStarred
 
         if (!learningQueue) {
@@ -206,7 +206,7 @@ class LearningSet extends SetInstance {
             'setId': this.setId,
             'answerWith': this.answerWith,
             'caseSensitivity': this.caseSensitivity,
-            'rewriteWrongAnswers': this.rewriteWrongAnswers,
+            'retypeWrongAnswers': this.retypeWrongAnswers,
             'learnStarred': this.learnStarred,
             'learningQueue': this.learningQueue
         }

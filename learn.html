@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="style/style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap"
+          rel="stylesheet">
+    <title>Title</title>
+    <script src="script/mainScript.js"></script>
+</head>
+<body class="dark-mode">
+<header class="menu-item" id="header"></header>
+<main id="learn">
+    <section class="set-management">
+        <p><a href="./my-sets.html">Moje zestawy</a> -> <span id="set-name"></span></p>
+        <div class="progress">
+            <p>Pozostało: <span id="remaining"></span></p>
+            <p>Dobre odpowiedzi: <span id="correct-answers"></span></p>
+            <p>Złe odpowiedzi: <span id="wrong-answers"></span></p>
+        </div>
+    </section>
+
+    <template id="question">
+        <div>
+            <h2 class="question-content"></h2>
+            <form class="learn-form">
+                <div class="labeled-input">
+                    <label for="answer">Odpowiedź</label>
+                    <input id="answer" type="text">
+                </div>
+                <div class="question-buttons">
+                    <button type="button">Nie wiem</button>
+                    <button type="submit">Odpowiedz</button>
+                </div>
+            </form>
+        </div>
+    </template>
+    <template id="wrong-answer">
+        <div>
+            <h2 class="question-content"></h2>
+            <p class="user-answer">(Nie udzielono odpowiedzi)</p>
+            <p class="correct-answer"></p>
+            <form class="learn-form">
+                <div class="wrong-answer-buttons">
+                    <button type="button">Miałem rację</button>
+                    <button type="submit">Dalej</button>
+                </div>
+            </form>
+        </div>
+    </template>
+    <template id="wrong-answer-with-retyping">
+        <div>
+            <h2 class="question-content"></h2>
+            <p class="user-answer">(Nie udzielono odpowiedzi)</p>
+            <p class="correct-answer"></p>
+            <form class="learn-form">
+                <label for="retype-answer">Przepisz odpowiedź:</label>
+                <input id="retype-answer" type="text">
+                <div class="wrong-answer-buttons">
+                    <button type="button">Miałem rację</button>
+                    <button type="submit">Dalej</button>
+                </div>
+            </form>
+        </div>
+    </template>
+    <template id="correct-answer">
+        <div>
+            <h2 class="question-content"></h2>
+            <p class="correct-answer"></p>
+            <p class="congratulation-message">Gratulacje 👏 Poprawna odpowiedź!</p>
+            <form class="learn-form">
+                <div class="single-submit-button-container">
+                    <button type="submit">Dalej</button>
+                </div>
+            </form>
+        </div>
+    </template>
+    <template id="learning-summary">
+        <div>
+
+        </div>
+    </template>
+</main>
+
+
+<footer class="menu-item" id="footer"></footer>
+</body>
+</html>

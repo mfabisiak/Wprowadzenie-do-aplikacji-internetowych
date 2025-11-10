@@ -20,13 +20,13 @@ function loadContent() {
 
 function saveLearningSettings(event) {
     event.preventDefault()
-    
+
     const answerWith = document.getElementById('answer-with').value
     const caseSensitivity = document.getElementById('case-sensitivity').checked
-    const rewriteWrongAnswers = document.getElementById('rewrite-wrong-answers').checked
+    const retypeWrongAnswers = document.getElementById('retype-wrong-answers').checked
     const learnStarred = document.getElementById('learn-starred').checked
 
-    Sets.instantiateLearningSet(currentSet.id, answerWith, caseSensitivity, rewriteWrongAnswers, learnStarred)
+    Sets.instantiateLearningSet(currentSet.id, answerWith, caseSensitivity, retypeWrongAnswers, learnStarred)
 }
 
 document.addEventListener('DOMContentLoaded', loadContent)
