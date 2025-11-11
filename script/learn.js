@@ -70,14 +70,12 @@ async function showCorrectAnswer(question, answer) {
     const questionContent = dynamicContent.querySelector('.question-content')
     const correctAnswer = dynamicContent.querySelector('.correct-answer')
     const form = dynamicContent.querySelector('.learn-form')
-    const button = dynamicContent.querySelector('.submit-button')
 
     questionContent.textContent = question
     correctAnswer.textContent = answer
 
     parent.appendChild(dynamicContent)
 
-    button.focus()
 
     const submitPromise = new Promise((resolve) => {
         form.addEventListener('submit', (event) => {
@@ -87,15 +85,19 @@ async function showCorrectAnswer(question, answer) {
     })
 
     const keyDownPromise = new Promise((resolve) => {
-        button.addEventListener('keydown', resolve)
+        function handler(event) {
+            event.preventDefault()
+            document.removeEventListener('keydown', handler)
+            resolve()
+        }
+
+        document.addEventListener('keydown', handler)
     })
 
     return Promise.any([submitPromise, keyDownPromise])
 }
 
-async function showWrongAnswerWithRetyping(question, answer, userAnswer) {
-    const parent = document.querySelector('.set-management')
-    const template = document.getElementById('wrong-answer-with-retyping')
+function loadWrongAnswerContent(template, parent, question, answer, userAnswer) {
     const dynamicContent = template.content.cloneNode(true)
 
     const questionField = dynamicContent.querySelector('.question-content')
@@ -110,11 +112,19 @@ async function showWrongAnswerWithRetyping(question, answer, userAnswer) {
     }
 
     parent.appendChild(dynamicContent)
+}
+
+async function showWrongAnswerWithRetyping(question, answer, userAnswer) {
+    const parent = document.querySelector('.set-management')
+    const template = document.getElementById('wrong-answer-with-retyping')
+
+    loadWrongAnswerContent(template, parent, question, answer, userAnswer)
 
     const inputField = document.getElementById('retype-answer')
-    const button = document.getElementById('I-was-right')
+    const IWasRightButton = parent.querySelector('.I-was-right')
+    const form = parent.querySelector('.learn-form')
 
-    document.addEventListener('submit', (e) => e.preventDefault())
+    form.addEventListener('submit', (e) => e.preventDefault())
 
     inputField.focus()
 
@@ -127,7 +137,7 @@ async function showWrongAnswerWithRetyping(question, answer, userAnswer) {
     })
 
     const buttonPromise = new Promise((resolve) => {
-        button.addEventListener('click', () => resolve(true))
+        IWasRightButton.addEventListener('click', () => resolve(true))
     })
 
     return Promise.any([inputPromise, buttonPromise])
@@ -135,10 +145,45 @@ async function showWrongAnswerWithRetyping(question, answer, userAnswer) {
 
 }
 
+async function showWrongAnswer(question, answer, userAnswer) {
+    const parent = document.querySelector('.set-management')
+    const template = document.getElementById('wrong-answer')
+
+    loadWrongAnswerContent(template, parent, question, answer, userAnswer)
+
+    const IWasRightButton = parent.querySelector('.I-was-right')
+    const form = parent.querySelector('.learn-form')
+
+
+    const buttonPromise = new Promise((resolve) => {
+        IWasRightButton.addEventListener('click', () => resolve(true))
+    })
+
+    const submitPromise = new Promise((resolve) => {
+        form.addEventListener('submit', (event) => {
+            event.preventDefault()
+            resolve(false)
+        })
+    })
+
+    const keyDownPromise = new Promise((resolve) => {
+        function handler(event) {
+            event.preventDefault()
+            document.removeEventListener('keydown', handler)
+            resolve()
+        }
+
+        document.addEventListener('keydown', handler)
+    })
+
+    return Promise.any([buttonPromise, submitPromise, keyDownPromise])
+}
+
 async function learn() {
     while (currentSet.numberOfRemainingItems() > 0) {
         let [question, answer] = currentSet.getNext()
         const userAnswer = await handleQuestion(question)
+        console.log(userAnswer)
 
         flushDynamicContent()
 
@@ -146,13 +191,15 @@ async function learn() {
 
         if (isValid) {
             await showCorrectAnswer()
-            flushDynamicContent()
         } else if (currentSet.retypeWrongAnswers) {
             const questionOutcome = await showWrongAnswerWithRetyping(question, answer, userAnswer)
             currentSet.submitAnswer(questionOutcome)
-            document.removeEventListener('submit', (e) => e.preventDefault())
-            flushDynamicContent()
+        } else {
+            const questionOutcome = await showWrongAnswer(question, answer, userAnswer)
+            currentSet.submitAnswer(questionOutcome)
         }
+
+        flushDynamicContent()
 
         updateStats()
     }
