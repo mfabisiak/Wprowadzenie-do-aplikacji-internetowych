@@ -375,7 +375,7 @@ textarea {
 
 .set-management > table th {
     text-align: left;
-    padding: 12px;
+    padding: 10px;
     border-bottom: 2px solid var(--border-color);
     font-weight: 600;
     background-color: var(--menu-background-color);
@@ -383,7 +383,7 @@ textarea {
 }
 
 .set-management > table td {
-    padding: 12px;
+    padding: 10px;
     border-bottom: 1px solid var(--border-color);
     word-wrap: break-word;
     overflow-wrap: break-word;
@@ -395,16 +395,16 @@ textarea {
 
 .term-editing-buttons-container {
     display: flex;
-    gap: 8px;
+    gap: 6px;
     flex-wrap: wrap;
     width: 100%;
 }
 
 .term-editing-buttons-container button {
     flex: 1;
-    min-width: 80px;
-    padding: 8px 12px;
-    font-size: 0.9rem;
+    min-width: 70px;
+    padding: 6px 10px;
+    font-size: 0.85rem;
 }
 
 /* Star checkbox styling */
@@ -457,12 +457,28 @@ textarea {
 
 /* Edit term row styling */
 .term-editing-row td {
-    padding: 8px 12px;
+    padding: 6px 8px;
+    vertical-align: middle;
+}
+
+.term-editing-row .input-text {
+    padding: 6px 8px;
+    font-size: 0.9rem;
+    border: 1px solid var(--input-border);
+    width: 100%;
+    max-width: 150px;
 }
 
 .term-editing-row button {
-    padding: 8px 12px;
-    font-size: 0.85rem;
+    padding: 6px 10px;
+    font-size: 0.9rem;
+    width: 70px;
+    margin: 2px 2px;
+    box-shadow: none;
+}
+
+.term-editing-row button:hover {
+    box-shadow: 0 2px 6px rgba(127, 90, 240, 0.2);
 }
 
 /* Buttons */
@@ -764,10 +780,6 @@ button:active {
 
     .set-management > table {
         table-layout: auto;
-    }
-
-    .table-column-md {
-        min-width: 150px;
     }
 
     .form-buttons-manage {
