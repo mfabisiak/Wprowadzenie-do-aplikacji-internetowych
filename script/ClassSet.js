@@ -222,7 +222,7 @@ class LearningSet extends SetInstance {
     validateAnswer(answer) {
         let expectedAnswer = this.currentItem.answer
         if (!this.caseSensitivity) {
-            expectedAnswer.toLowerCase()
+            expectedAnswer = expectedAnswer.toLowerCase()
             answer = answer.toLowerCase()
         }
         const isValid = answer.trim() === expectedAnswer.trim()

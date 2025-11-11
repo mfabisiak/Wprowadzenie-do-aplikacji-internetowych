@@ -74,6 +74,8 @@ async function showCorrectAnswer(question, answer) {
     questionContent.textContent = question
     correctAnswer.textContent = answer
 
+    console.log(answer)
+
     parent.appendChild(dynamicContent)
 
 
@@ -189,7 +191,7 @@ async function learn() {
         const isValid = currentSet.validateAnswer(userAnswer)
 
         if (isValid) {
-            await showCorrectAnswer()
+            await showCorrectAnswer(question, answer)
         } else if (currentSet.retypeWrongAnswers) {
             const questionOutcome = await showWrongAnswerWithRetyping(question, answer, userAnswer)
             currentSet.submitAnswer(questionOutcome)
