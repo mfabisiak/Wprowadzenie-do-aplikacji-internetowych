@@ -148,7 +148,7 @@ export class SetInstance {
 }
 
 class LearningSet extends SetInstance {
-    constructor(setId, answerWith, caseSensitivity, retypeWrongAnswers, learnStarred, learningQueue = null, correctAnswers, wrongAnswers) {
+    constructor(setId, answerWith, caseSensitivity, retypeWrongAnswers, learnStarred, learningQueue = null, correctAnswers = [], wrongAnswers = []) {
         super(setId)
         this.answerWith = answerWith
         this.caseSensitivity = caseSensitivity
