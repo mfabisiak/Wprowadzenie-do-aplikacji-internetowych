@@ -20,7 +20,8 @@
         <form class="create-set-form">
             <div class="labeled-input">
                 <label for="set-name">Nazwa zestawu</label>
-                <input autocomplete="off" id="set-name" name="set-name" pattern=".*\S.*" required type="text">
+                <input autocomplete="off" class="input-text" id="set-name" name="set-name" pattern=".*\S.*" required
+                       type="text">
             </div>
             <div class="labeled-input">
                 <label for="set-description">Opis zestawu:</label>
@@ -34,7 +35,8 @@
             <tr>
                 <th>Gwiazdka</th>
                 <th>Pojęcie</th>
-                <th>Definicja</th>
+                <th class="table-column-md">Definicja</th>
+                <th></th>
             </tr>
 
 
@@ -45,17 +47,17 @@
             <div class="input-container">
                 <div class="labeled-text-input">
                     <label for="term">Pojęcie</label>
-                    <input autocomplete="off" id="term" name="term" required type="text">
+                    <input autocomplete="off" class="input-text" id="term" name="term" required type="text">
                 </div>
                 <div class="labeled-text-input">
                     <label for="definition">Definicja</label>
-                    <input autocomplete="off" id="definition" name="definition" required type="text">
+                    <input autocomplete="off" class="input-text" id="definition" name="definition" required type="text">
                 </div>
             </div>
-            <div>
+            <div class="form-buttons-add">
                 <button type="submit">Dodaj pojęcie</button>
             </div>
-            <div>
+            <div class="form-buttons-manage">
                 <button id="save-set" type="button">Zapisz</button>
                 <button id="remove-set" type="button">Usuń zestaw</button>
             </div>
@@ -74,12 +76,15 @@
         </tr>
     </template>
     <template id="edit-term-template">
-        <tr>
+        <tr class="term-editing-row">
+            <td></td>
             <td class="existing-term">
-                <input aria-label="Edytuj pojęcie" autocomplete="off" id="edit-term" required type="text">
+                <input aria-label="Edytuj pojęcie" autocomplete="off" class="input-text" id="edit-term" required
+                       type="text">
             </td>
             <td>
-                <input aria-label="Edytuj definicję" autocomplete="off" id="edit-definition" required type="text">
+                <input aria-label="Edytuj definicję" autocomplete="off" class="input-text" id="edit-definition" required
+                       type="text">
             </td>
             <td>
                 <button class="save-changes" type="button">Zapisz</button>

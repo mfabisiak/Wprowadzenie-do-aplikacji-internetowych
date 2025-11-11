@@ -183,7 +183,6 @@ async function learn() {
     while (currentSet.numberOfRemainingItems() > 0) {
         let [question, answer] = currentSet.getNext()
         const userAnswer = await handleQuestion(question)
-        console.log(userAnswer)
 
         flushDynamicContent()
 
