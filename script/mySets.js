@@ -31,9 +31,6 @@ function loadSets() {
         newTile.addEventListener('click', openSet)
 
         learnButton.addEventListener('click', setupLearning)
-
-
-
     }
 }
 

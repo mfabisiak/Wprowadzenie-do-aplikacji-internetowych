@@ -90,13 +90,10 @@ function printTerm(term, definition, isStarred, index) {
         const status = event.currentTarget.checked
         const index = parseInt(event.currentTarget.value)
 
-        switch (status) {
-            case true:
-                currentSet.starItem(index)
-                break
-            case false:
+        if (status) {
+            currentSet.starItem(index)
+        } else {
                 currentSet.unstarItem(index)
-                break
         }
     }
 

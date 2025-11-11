@@ -212,7 +212,7 @@ function showWrongAnswers() {
 
     parent = document.querySelector('.wrong-answers-container')
     template = document.getElementById('wrong-answer-row')
-    console.log(currentSet.wrongAnswers)
+
     for (let [question, answer] of currentSet.wrongAnswers.map(x => [x.question, x.answer])) {
         const newRow = template.content.cloneNode(true)
 
