@@ -41,7 +41,10 @@ function editTerm(event) {
     const buttonContainers = document.getElementsByClassName('term-editing-buttons-container')
 
     for (let buttonContainer of buttonContainers) {
-        buttonContainer.style.visibility = 'hidden'
+        const buttons = buttonContainer.querySelectorAll('button')
+        for (let button of buttons) {
+            button.style.visibility = 'hidden'
+        }
     }
 
     const saveButton = newRow.querySelector('.save-changes')
