@@ -30,7 +30,7 @@
             <form class="learn-form">
                 <div class="labeled-input">
                     <label for="answer">Odpowiedź</label>
-                    <input id="answer" type="text">
+                    <input autocomplete="off" id="answer" type="text">
                 </div>
                 <div class="question-buttons">
                     <button class="skip-button" type="button">Nie wiem</button>
@@ -59,10 +59,9 @@
             <p class="correct-answer"></p>
             <form class="learn-form">
                 <label for="retype-answer">Przepisz odpowiedź:</label>
-                <input id="retype-answer" type="text">
+                <input autocomplete="off" id="retype-answer" type="text">
                 <div class="wrong-answer-buttons">
-                    <button type="button">Miałem rację</button>
-                    <button type="submit">Dalej</button>
+                    <button id="I-was-right" type="button">Miałem rację</button>
                 </div>
             </form>
         </div>
@@ -74,7 +73,7 @@
             <p class="congratulation-message">Gratulacje 👏 Poprawna odpowiedź!</p>
             <form class="learn-form">
                 <div class="single-submit-button-container">
-                    <button type="submit">Dalej</button>
+                    <button class="submit-button" type="submit">Dalej</button>
                 </div>
             </form>
         </div>

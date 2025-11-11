@@ -31,29 +31,22 @@ function handleQuestion(currentQuestion) {
 
     const questionContent = dynamicContent.querySelector('.question-content')
     const skipButton = dynamicContent.querySelector('.skip-button')
+    const form = dynamicContent.querySelector('.learn-form')
 
-    questionContent.textContent = currentQuestion.trim()
+    questionContent.textContent = currentQuestion
 
     parent.appendChild(dynamicContent)
 
-    function skipQuestion() {
-        skipButton.removeEventListener('click', skipButton)
-
-        return ''
-    }
+    document.getElementById('answer').focus()
 
     function checkAnswer(event) {
         event.preventDefault()
 
-        const answer = document.getElementById('answer').value
-
-        document.removeEventListener('submit', checkAnswer)
-
-        return answer
+        return document.getElementById('answer').value
     }
 
     const submitPromise = new Promise((resolve) => {
-        document.addEventListener('submit', (event) => {
+        form.addEventListener('submit', (event) => {
             const ans = checkAnswer(event)
             resolve(ans)
         })
@@ -61,12 +54,85 @@ function handleQuestion(currentQuestion) {
 
     const skipPromise = new Promise((resolve) => {
         skipButton.addEventListener('click', () => {
-            const ans = skipQuestion()
+            const ans = ''
             resolve(ans)
         })
     })
 
     return Promise.any([submitPromise, skipPromise])
+}
+
+async function showCorrectAnswer(question, answer) {
+    const parent = document.querySelector('.set-management')
+    const template = document.getElementById('correct-answer')
+    const dynamicContent = template.content.cloneNode(true)
+
+    const questionContent = dynamicContent.querySelector('.question-content')
+    const correctAnswer = dynamicContent.querySelector('.correct-answer')
+    const form = dynamicContent.querySelector('.learn-form')
+    const button = dynamicContent.querySelector('.submit-button')
+
+    questionContent.textContent = question
+    correctAnswer.textContent = answer
+
+    parent.appendChild(dynamicContent)
+
+    button.focus()
+
+    const submitPromise = new Promise((resolve) => {
+        form.addEventListener('submit', (event) => {
+            event.preventDefault()
+            resolve()
+        })
+    })
+
+    const keyDownPromise = new Promise((resolve) => {
+        button.addEventListener('keydown', resolve)
+    })
+
+    return Promise.any([submitPromise, keyDownPromise])
+}
+
+async function showWrongAnswerWithRetyping(question, answer, userAnswer) {
+    const parent = document.querySelector('.set-management')
+    const template = document.getElementById('wrong-answer-with-retyping')
+    const dynamicContent = template.content.cloneNode(true)
+
+    const questionField = dynamicContent.querySelector('.question-content')
+    const userAnswerField = dynamicContent.querySelector('.user-answer')
+    const answerField = dynamicContent.querySelector('.correct-answer')
+
+    questionField.textContent = question
+    answerField.textContent = answer
+
+    if (userAnswer) {
+        userAnswerField.textContent = userAnswer
+    }
+
+    parent.appendChild(dynamicContent)
+
+    const inputField = document.getElementById('retype-answer')
+    const button = document.getElementById('I-was-right')
+
+    document.addEventListener('submit', (e) => e.preventDefault())
+
+    inputField.focus()
+
+    const inputPromise = new Promise((resolve) => {
+        inputField.addEventListener('input', (event) => {
+            if (event.currentTarget.value === answer) {
+                resolve(false)
+            }
+        })
+    })
+
+    const buttonPromise = new Promise((resolve) => {
+        button.addEventListener('click', () => resolve(true))
+    })
+
+    return Promise.any([inputPromise, buttonPromise])
+
+
 }
 
 async function learn() {
@@ -78,9 +144,17 @@ async function learn() {
 
         const isValid = currentSet.validateAnswer(userAnswer)
 
-        updateStats()
+        if (isValid) {
+            await showCorrectAnswer()
+            flushDynamicContent()
+        } else if (currentSet.retypeWrongAnswers) {
+            const questionOutcome = await showWrongAnswerWithRetyping(question, answer, userAnswer)
+            currentSet.submitAnswer(questionOutcome)
+            document.removeEventListener('submit', (e) => e.preventDefault())
+            flushDynamicContent()
+        }
 
-        console.log(isValid)
+        updateStats()
     }
 }
 

@@ -227,11 +227,17 @@ class LearningSet extends SetInstance {
         }
         const isValid = answer.trim() === expectedAnswer.trim()
         if (isValid) {
+            this.submitAnswer(isValid)
+        }
+        return isValid
+    }
+
+    submitAnswer(isValid) {
+        if (isValid) {
             this.appendCorrect()
         } else {
             this.appendWrong()
         }
-        return isValid
     }
 
     saveToStorage() {
