@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="style/style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap"
+          rel="stylesheet">
+    <title>Title</title>
+    <script src="script/mainScript.js"></script>
+    <script src="script/learningSetup.js" type="module"></script>
+</head>
+<body class="dark-mode">
+<header class="menu-item" id="header"></header>
+<main id="learning-setup">
+    <!--    consider changing class below-->
+    <section class="set-management">
+        <p><a href="./my-sets.html">Moje zestawy</a> -> <span id="set-name"></span></p>
+        <h2 id="set-name-header"></h2>
+        <h3 class="form-header">Dostosuj sposób nauki</h3>
+        <form id="learning-setup-form">
+            <div class="labeled-input">
+                <label for="answer-with">Odpowiadaj przez:</label>
+                <select id="answer-with">
+                    <option value="term">Pojęcie</option>
+                    <option value="definition">Definicja</option>
+                </select>
+            </div>
+            <div class="labeled-input labeled-input-toggle">
+                <label for="case-sensitivity">Uwzględniaj wielkość liter:</label>
+                <input class="toggle" id="case-sensitivity" type="checkbox">
+            </div>
+            <div class="labeled-input labeled-input-toggle">
+                <label for="retype-wrong-answers">Wymagaj przepisania odpowiedzi po popełnieniu błędu:</label>
+                <input class="toggle" id="retype-wrong-answers" type="checkbox">
+            </div>
+            <div class="labeled-input labeled-input-toggle">
+                <label for="learn-starred">Ucz się tylko pojęć oznaczonych gwiazdką:</label>
+                <input class="toggle" id="learn-starred" type="checkbox">
+            </div>
+            <button type="submit">Rozpocznij naukę</button>
+        </form>
+    </section>
+</main>
+
+<footer class="menu-item" id="footer"></footer>
+</body>
+</html>
