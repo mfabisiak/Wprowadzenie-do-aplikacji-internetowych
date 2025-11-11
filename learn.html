@@ -78,10 +78,32 @@
             </form>
         </div>
     </template>
-    <template id="learning-summary">
+    <template id="all-questions-passed">
         <div>
-
+            <h2>Gratulacje 👏 Umiesz już wszystko!</h2>
+            <div class="single-submit-button-container">
+                <button class="submit-button" type="submit">Jeszcze raz</button>
+            </div>
         </div>
+    </template>
+    <template id="wrong-answers-summary">
+        <h2>Umiesz już <span class="correct-answers"></span>/<span class="number-of-items"></span> pojęć</h2>
+        <table class="wrong-answers-table">
+            <tbody class="wrong-answers-container">
+            <tr>
+                <th colspan="2">Poniższe pojęcia musisz jeszcze powtórzyć</th>
+            </tr>
+            </tbody>
+        </table>
+        <div class="single-submit-button-container">
+            <button class="submit-button" type="submit">Jeszcze raz</button>
+        </div>
+    </template>
+    <template id="wrong-answer-row">
+        <tr>
+            <td class="question"></td>
+            <td class="answer"></td>
+        </tr>
     </template>
 </main>
 

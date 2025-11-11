@@ -74,8 +74,6 @@ async function showCorrectAnswer(question, answer) {
     questionContent.textContent = question
     correctAnswer.textContent = answer
 
-    console.log(answer)
-
     parent.appendChild(dynamicContent)
 
 
@@ -181,6 +179,58 @@ async function showWrongAnswer(question, answer, userAnswer) {
     return Promise.any([buttonPromise, submitPromise, keyDownPromise])
 }
 
+function showCongratulations() {
+    const parent = document.querySelector('.set-management')
+    const template = document.getElementById('all-questions-passed')
+
+    const dynamicContent = template.content.cloneNode(true)
+
+    parent.appendChild(dynamicContent)
+
+    const button = parent.querySelector('.submit-button')
+
+    button.addEventListener('click', (event) => {
+        event.preventDefault()
+        window.location.href = './learning-setup.html'
+    })
+}
+
+function showWrongAnswers() {
+    let parent = document.querySelector('.set-management')
+    let template = document.getElementById('wrong-answers-summary')
+
+    const dynamicContent = template.content.cloneNode(true)
+
+    const numberOfCorrectAnswers = dynamicContent.querySelector('.correct-answers')
+    const numberOfItems = dynamicContent.querySelector('.number-of-items')
+    const button = dynamicContent.querySelector('.submit-button')
+
+    numberOfCorrectAnswers.textContent = currentSet.numberOfCorrectAnswers().toString()
+    numberOfItems.textContent = (currentSet.numberOfCorrectAnswers() + currentSet.numberOfWrongAnswers()).toString()
+
+    parent.appendChild(dynamicContent)
+
+    parent = document.querySelector('.wrong-answers-container')
+    template = document.getElementById('wrong-answer-row')
+    console.log(currentSet.wrongAnswers)
+    for (let [question, answer] of currentSet.wrongAnswers.map(x => [x.question, x.answer])) {
+        const newRow = template.content.cloneNode(true)
+
+        const questionContent = newRow.querySelector('.question')
+        const answerContent = newRow.querySelector('.answer')
+
+        questionContent.textContent = question
+        answerContent.textContent = answer
+
+        parent.appendChild(newRow)
+    }
+
+    button.addEventListener('click', (event) => {
+        event.preventDefault()
+        window.location.href = './learning-setup.html'
+    })
+}
+
 async function learn() {
     while (currentSet.numberOfRemainingItems() > 0) {
         let [question, answer] = currentSet.getNext()
@@ -203,6 +253,12 @@ async function learn() {
         flushDynamicContent()
 
         updateStats()
+    }
+
+    if (currentSet.numberOfWrongAnswers() === 0) {
+        showCongratulations()
+    } else {
+        showWrongAnswers()
     }
 }
 
