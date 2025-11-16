@@ -24,6 +24,7 @@ body.dark-mode {
     --border-color: #3E3F47;
     --input-background: #1a1a1e;
     --input-border: #404048;
+    --hero-stat-color: #A78BFA;
 }
 
 /* Light Mode */
@@ -36,6 +37,7 @@ body.light-mode {
     --border-color: #E0E0E0;
     --input-background: #FFFFFF;
     --input-border: #D0D0D0;
+    --hero-stat-color: #FFFFFF;
 }
 
 /* Body */
@@ -547,15 +549,16 @@ button:active {
 
 /* Tiles Container */
 .tile-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 25px;
     padding: 30px 20px;
-    justify-content: center;
     flex: 1;
 }
 
 .set-tile {
+    flex: 0 1 300px;
     background-color: var(--card-background);
     color: var(--text-color);
     border-radius: 12px;
@@ -688,6 +691,258 @@ button:active {
     margin: 15px 0;
 }
 
+/* Hero Section Styles */
+.hero-section {
+    background: linear-gradient(135deg, rgba(127, 90, 240, 0.1) 0%, rgba(167, 139, 250, 0.05) 100%);
+    padding: 60px 20px;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-content {
+    max-width: 1200px;
+    width: 100%;
+}
+
+.hero-section h1 {
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: var(--primary-color);
+    margin: 0 0 20px 0;
+    text-align: center;
+    line-height: 1.2;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-tagline {
+    font-size: 1.3rem;
+    color: var(--text-color);
+    text-align: center;
+    margin: 0 0 40px 0;
+    opacity: 0.9;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 60px;
+    flex-wrap: wrap;
+}
+
+.hero-btn {
+    padding: 15px 40px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: var(--transition);
+    display: inline-block;
+    cursor: pointer;
+    border: none;
+}
+
+.hero-btn-primary {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(127, 90, 240, 0.3);
+}
+
+.hero-btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(127, 90, 240, 0.4);
+}
+
+.hero-btn-secondary {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.hero-btn-secondary:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-3px);
+}
+
+.hero-btn-large {
+    padding: 18px 50px;
+    font-size: 1.2rem;
+}
+
+/* Features Section */
+.hero-features {
+    margin: 80px 0;
+}
+
+.hero-features h2 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 50px;
+    color: var(--text-color);
+}
+
+.hero-features-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.hero-feature-card {
+    flex: 0 1 250px;
+    background-color: var(--card-background);
+    padding: 40px 30px;
+    border-radius: 12px;
+    border: 2px solid transparent;
+    transition: var(--transition);
+    text-align: center;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+.hero-feature-card:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(127, 90, 240, 0.2);
+}
+
+.hero-feature-icon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.hero-feature-card h3 {
+    font-size: 1.3rem;
+    color: var(--text-color);
+    margin: 15px 0;
+}
+
+.hero-feature-card p {
+    color: var(--text-color);
+    opacity: 0.8;
+    line-height: 1.6;
+}
+
+/* Stats Section */
+.hero-stats {
+    margin: 80px 0;
+    background-color: var(--menu-background-color);
+    padding: 60px 40px;
+    border-radius: 12px;
+}
+
+.hero-stats h2 {
+    font-size: 2.5rem;
+    text-align: center;
+    color: var(--menu-text-color);
+    margin-bottom: 50px;
+}
+
+.hero-stats-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+}
+
+.hero-stat {
+    flex: 0 1 250px;
+    text-align: center;
+}
+
+.hero-stat h4 {
+    font-size: 2.5rem;
+    color: var(--hero-stat-color);
+    margin: 0 0 15px 0;
+    font-weight: 900;
+}
+
+.hero-stat p {
+    color: var(--menu-text-color);
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+/* Testimonials Section */
+.hero-testimonials {
+    margin: 80px 0;
+}
+
+.hero-testimonials h2 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 50px;
+    color: var(--text-color);
+}
+
+.hero-testimonials-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.hero-testimonial {
+    flex: 0 1 calc(33.333% - 20px);
+    min-width: 280px;
+    background-color: var(--card-background);
+    padding: 30px;
+    border-radius: 12px;
+    border-left: 4px solid var(--primary-color);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+}
+
+.hero-testimonial:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(127, 90, 240, 0.2);
+}
+
+.hero-testimonial p {
+    color: var(--text-color);
+    margin: 0;
+    line-height: 1.7;
+}
+
+/* CTA Final Section */
+.hero-cta-final {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+    padding: 60px 40px;
+    border-radius: 12px;
+    text-align: center;
+    margin: 80px 0 0 0;
+    color: white;
+}
+
+.hero-cta-final h2 {
+    font-size: 2.2rem;
+    color: white;
+    margin: 0 0 20px 0;
+}
+
+.hero-cta-final p {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.95);
+    margin: 0 0 30px 0;
+}
+
+.hero-cta-final .hero-btn-large {
+    background-color: white;
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.hero-cta-final .hero-btn-large:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+    transform: translateY(-3px);
+}
+
 /* Responsiveness */
 @media (max-width: 768px) {
     nav {
@@ -736,9 +991,12 @@ button:active {
     }
 
     .tile-container {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
         gap: 20px;
         padding: 20px 15px;
+    }
+
+    .set-tile {
+        flex: 0 1 250px;
     }
 
     .set-tile {
@@ -810,6 +1068,49 @@ button:active {
     .is-starred-checkbox::before {
         font-size: 18px;
     }
+
+    .hero-section {
+        padding: 40px 20px;
+    }
+
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-tagline {
+        font-size: 1.1rem;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .hero-btn {
+        width: 100%;
+    }
+
+    .hero-features h2,
+    .hero-stats h2,
+    .hero-testimonials h2,
+    .hero-cta-final h2 {
+        font-size: 1.8rem;
+    }
+
+    .hero-feature-card,
+    .hero-stat,
+    .hero-testimonial {
+        flex: 0 1 calc(50% - 10px);
+        min-width: 200px;
+    }
+
+    .hero-stats {
+        padding: 40px 20px;
+    }
+
+    .hero-cta-final {
+        padding: 40px 20px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -841,9 +1142,12 @@ button:active {
     }
 
     .tile-container {
-        grid-template-columns: 1fr;
         gap: 15px;
         padding: 15px 10px;
+    }
+
+    .set-tile {
+        flex: 0 1 100%;
     }
 
     .set-tile {
@@ -923,5 +1227,54 @@ button:active {
         width: 100%;
         min-width: auto;
     }
-}
 
+    .hero-section {
+        padding: 30px 15px;
+    }
+
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+
+    .hero-tagline {
+        font-size: 0.95rem;
+    }
+
+    .hero-btn {
+        padding: 12px 30px;
+        font-size: 1rem;
+    }
+
+    .hero-btn-large {
+        padding: 14px 35px;
+        font-size: 1rem;
+    }
+
+    .hero-features h2,
+    .hero-stats h2,
+    .hero-testimonials h2,
+    .hero-cta-final h2 {
+        font-size: 1.5rem;
+    }
+
+    .hero-feature-icon {
+        font-size: 2.5rem;
+    }
+
+    .hero-stat h4 {
+        font-size: 2rem;
+    }
+
+    .hero-feature-card,
+    .hero-stat,
+    .hero-testimonial {
+        flex: 0 1 100%;
+        min-width: auto;
+    }
+
+    .hero-stats,
+    .hero-cta-final {
+        padding: 30px 15px;
+        margin: 60px 0 0 0;
+    }
+}
