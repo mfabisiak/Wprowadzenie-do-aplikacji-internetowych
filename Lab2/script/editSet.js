@@ -93,7 +93,7 @@ function printTerm(term, definition, isStarred, index) {
         if (status) {
             currentSet.starItem(index)
         } else {
-                currentSet.unstarItem(index)
+            currentSet.unstarItem(index)
         }
     }
 
