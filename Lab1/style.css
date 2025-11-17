@@ -144,3 +144,8 @@ th, td {
 #sq5 {
     background-color: orange;
 }
+
+.window {
+    background-color: blue;
+    position: absolute;
+}
