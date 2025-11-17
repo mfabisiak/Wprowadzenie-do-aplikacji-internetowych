@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="style/style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap"
+          rel="stylesheet">
+    <link href="favicon.png" rel="icon" type="image/x-icon">
+    <title>Edytuj zestaw</title>
+    <script src="script/mainScript.js"></script>
+    <script src="script/editSet.js" type="module"></script>
+</head>
+<body class="dark-mode">
+<header class="menu-item" id="header"></header>
+<main id="edit-set">
+    <section class="set-management">
+        <p><a href="./my-sets.html">Moje zestawy</a> -> <span id="set-name-header"></span></p>
+        <form class="create-set-form">
+            <div class="labeled-input">
+                <label for="set-name">Nazwa zestawu</label>
+                <input autocomplete="off" class="input-text" id="set-name" name="set-name" pattern=".*\S.*" required
+                       type="text">
+            </div>
+            <div class="labeled-input">
+                <label for="set-description">Opis zestawu:</label>
+                <textarea id="set-description" name="set-description" rows="4"></textarea>
+            </div>
+        </form>
+        <h1>Edytuj pojęcia</h1>
+        <p>Twoje pojęcia:</p>
+        <table id="existing-terms">
+            <tbody id="existing-terms-body">
+            <tr>
+                <th>Gwiazdka</th>
+                <th>Pojęcie</th>
+                <th>Definicja</th>
+                <th></th>
+            </tr>
+
+
+            </tbody>
+
+        </table>
+        <form class="edit-set-form">
+            <div class="input-container">
+                <div class="labeled-text-input">
+                    <label for="term">Pojęcie</label>
+                    <input autocomplete="off" class="input-text" id="term" name="term" required type="text">
+                </div>
+                <div class="labeled-text-input">
+                    <label for="definition">Definicja</label>
+                    <input autocomplete="off" class="input-text" id="definition" name="definition" required type="text">
+                </div>
+            </div>
+            <div class="form-buttons-add">
+                <button type="submit">Dodaj pojęcie</button>
+            </div>
+            <div class="form-buttons-manage">
+                <button id="save-set" type="button">Zapisz</button>
+                <button id="remove-set" type="button">Usuń zestaw</button>
+            </div>
+        </form>
+    </section>
+
+    <template id="term-template">
+        <tr>
+            <td><input aria-label="Oznacz pojęcie gwiazdką" class="is-starred-checkbox" type="checkbox"></td>
+            <td class="existing-term"></td>
+            <td class="existing-definition"></td>
+            <td class="term-editing-buttons-container">
+                <button class="edit-term">Edytuj</button>
+                <button class="delete-term">Usuń</button>
+            </td>
+        </tr>
+    </template>
+    <template id="edit-term-template">
+        <tr class="term-editing-row">
+            <td></td>
+            <td class="existing-term">
+                <input aria-label="Edytuj pojęcie" autocomplete="off" class="input-text" id="edit-term" required
+                       type="text">
+            </td>
+            <td>
+                <input aria-label="Edytuj definicję" autocomplete="off" class="input-text" id="edit-definition" required
+                       type="text">
+            </td>
+            <td>
+                <button class="save-changes" type="button">Zapisz</button>
+                <button class="discard-changes" type="button">Odrzuć</button>
+            </td>
+        </tr>
+    </template>
+
+</main>
+
+<footer class="menu-item" id="footer"></footer>
+</body>
+</html>

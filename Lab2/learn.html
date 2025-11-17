@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="style/style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap"
+          rel="stylesheet">
+    <link href="favicon.png" rel="icon" type="image/x-icon">
+    <title>Ucz się</title>
+    <script src="script/mainScript.js"></script>
+    <script src="script/learn.js" type="module"></script>
+</head>
+<body class="dark-mode">
+<header class="menu-item" id="header"></header>
+<main id="learn">
+    <section class="set-management">
+        <p><a href="./my-sets.html">Moje zestawy</a> -> <span id="set-name"></span></p>
+        <div class="progress">
+            <p>Pozostało: <span id="remaining"></span></p>
+            <p>Dobre odpowiedzi: <span id="correct-answers"></span></p>
+            <p>Złe odpowiedzi: <span id="wrong-answers"></span></p>
+        </div>
+    </section>
+
+    <template id="question">
+        <div>
+            <h2 class="question-content"></h2>
+            <form class="learn-form">
+                <div class="labeled-input">
+                    <label for="answer">Odpowiedź</label>
+                    <input autocomplete="off" class="input-text" id="answer" type="text">
+                </div>
+                <div class="question-buttons">
+                    <button class="skip-button" type="button">Nie wiem</button>
+                    <button class="submit-button" type="submit">Odpowiedz</button>
+                </div>
+            </form>
+        </div>
+    </template>
+    <template id="wrong-answer">
+        <div>
+            <h2 class="question-content"></h2>
+            <p class="user-answer">(Nie udzielono odpowiedzi)</p>
+            <p class="correct-answer"></p>
+            <form class="learn-form">
+                <div class="wrong-answer-buttons">
+                    <button class="I-was-right" type="button">Miałem rację</button>
+                    <button class="submit-button" type="submit">Dalej</button>
+                </div>
+            </form>
+        </div>
+    </template>
+    <template id="wrong-answer-with-retyping">
+        <div>
+            <h2 class="question-content"></h2>
+            <p class="user-answer">(Nie udzielono odpowiedzi)</p>
+            <p class="correct-answer"></p>
+            <form class="learn-form">
+                <label for="retype-answer">Przepisz odpowiedź:</label>
+                <input autocomplete="off" class="input-text" id="retype-answer" type="text">
+                <div class="wrong-answer-buttons">
+                    <button class="I-was-right" type="button">Miałem rację</button>
+                </div>
+            </form>
+        </div>
+    </template>
+    <template id="correct-answer">
+        <div>
+            <h2 class="question-content"></h2>
+            <p class="correct-answer"></p>
+            <p class="congratulation-message">Gratulacje 👏 Poprawna odpowiedź!</p>
+            <form class="learn-form">
+                <div class="single-submit-button-container">
+                    <button class="submit-button" type="submit">Dalej</button>
+                </div>
+            </form>
+        </div>
+    </template>
+    <template id="all-questions-passed">
+        <div>
+            <h2>Gratulacje 👏 Umiesz już wszystko!</h2>
+            <div class="single-submit-button-container">
+                <button class="submit-button" type="submit">Jeszcze raz</button>
+            </div>
+        </div>
+    </template>
+    <template id="wrong-answers-summary">
+        <h2>Umiesz już <span class="correct-answers"></span>/<span class="number-of-items"></span> pojęć</h2>
+        <table class="wrong-answers-table">
+            <tbody class="wrong-answers-container">
+            <tr>
+                <th colspan="2">Poniższe pojęcia musisz jeszcze powtórzyć</th>
+            </tr>
+            </tbody>
+        </table>
+        <div class="single-submit-button-container">
+            <button class="submit-button" type="submit">Jeszcze raz</button>
+        </div>
+    </template>
+    <template id="wrong-answer-row">
+        <tr>
+            <td class="question"></td>
+            <td class="answer"></td>
+        </tr>
+    </template>
+</main>
+
+
+<footer class="menu-item" id="footer"></footer>
+</body>
+</html>
