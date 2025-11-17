@@ -44,7 +44,8 @@ body.light-mode {
 body {
     visibility: hidden;
     color: var(--text-color);
-    background-color: var(--background-color);
+    background: linear-gradient(135deg, rgba(127, 90, 240, 0.1) 0%, rgba(167, 139, 250, 0.05) 100%), var(--background-color);
+    background-attachment: fixed;
     display: flex;
     flex-direction: column;
     padding: 0;
@@ -693,7 +694,6 @@ button:active {
 
 /* Hero Section Styles */
 .hero-section {
-    background: linear-gradient(135deg, rgba(127, 90, 240, 0.1) 0%, rgba(167, 139, 250, 0.05) 100%);
     padding: 60px 20px;
     min-height: 100vh;
     display: flex;
