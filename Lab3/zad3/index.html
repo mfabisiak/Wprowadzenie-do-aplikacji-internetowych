@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link rel="stylesheet" href="style.css">
+    <script src="main.js" type="module"></script>
+    <title>Products</title>
+</head>
+<body>
+
+<main>
+    <form>
+        <label for="sorting">Sortuj według</label>
+        <select id="sorting">
+            <option value="default">Domyślnie</option>
+            <option value="asc">A do Z</option>
+            <option value="desc">Z do A</option>
+        </select>
+    </form>
+    <div class="products-container">
+
+    </div>
+</main>
+<template id="product">
+    <div>
+        <h2 class="product-title"></h2>
+        <p class="description-container"><span class="product-description"></span></p>
+        <img class="product-picture" src="" alt="product picture">
+    </div>
+</template>
+</body>
+</html>
