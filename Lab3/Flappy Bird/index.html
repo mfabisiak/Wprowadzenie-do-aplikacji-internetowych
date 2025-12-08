@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flappy Bird - Lab 3</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="game-container">
+    <canvas id="bird-game" width="288" height="512"></canvas>
+
+    <div id="game-over-screen" class="hidden">
+        <img src="assets/UI/gameover.png" alt="Game Over" class="go-title">
+
+        <div class="score-board">
+            <div class="scores-text">
+                <p>WYNIK: <span id="current-score">0</span></p>
+                <p>NAJLEPSZY: <span id="best-score">0</span></p>
+            </div>
+        </div>
+
+        <div class="top-scores">
+            <h4>TOP 5 WYNIKÓW:</h4>
+            <ul id="high-score-list"></ul>
+        </div>
+
+        <button id="restart-btn">Zagraj</button>
+    </div>
+
+    <div id="congrats-screen" class="hidden">
+        <h2>REKORD!</h2>
+        <p>Wpisz imię:</p>
+        <input type="text" id="nick-input" placeholder="Nick" maxlength="8">
+        <button id="save-score-btn">Zapisz</button>
+    </div>
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>
