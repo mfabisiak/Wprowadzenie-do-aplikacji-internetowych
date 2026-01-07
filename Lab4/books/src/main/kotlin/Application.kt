@@ -10,7 +10,8 @@ fun main(args: Array<String>) {
 
 fun Application.module() {
     configureSecurity()
-    configureDatabases()
+    val database = configureDatabases()
+    configureRouting(database)
     install(ContentNegotiation) {
         json()
     }
