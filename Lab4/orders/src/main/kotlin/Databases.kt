@@ -55,6 +55,12 @@ fun Application.configureDatabases() {
             val bookId = call.parameters["bookId"]?.toInt() ?: throw IllegalArgumentException("Book ID not provided")
             val quantity = call.parameters["quantity"]?.toInt() ?: 1
 
+            val response = httpClient.get("http://localhost:8080/api/books/$bookId")
+
+            if (response.status != HttpStatusCode.OK) {
+                call.respond(HttpStatusCode.BadRequest, "Book with ID $bookId does not exist")
+                return@post
+            }
 
 
             val orderId = ordersService.placeOrder(ExposedOrder(
@@ -79,7 +85,7 @@ fun Application.configureDatabases() {
             call.respond(HttpStatusCode.OK)
         }
 
-        patch("api/orders") {
+        patch("/api/orders") {
             val orderId = call.parameters["orderId"]?.toInt() ?: throw IllegalArgumentException("Order ID not provided")
             val newUserId: Int? = call.parameters["userId"]?.toInt()
             val newBookId: Int? = call.parameters["bookId"]?.toInt()
