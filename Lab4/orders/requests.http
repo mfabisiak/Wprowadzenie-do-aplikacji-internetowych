@@ -1,0 +1,131 @@
+###
+GET http://localhost:8080/api/books
+
+<> 2025-12-23T044316.200.json
+<> 2025-12-23T044306.200.json
+<> 2025-12-23T044248.200.json
+
+###
+POST http://localhost:8080/api/books
+Content-Type: application/json
+
+{
+  "id": 0,
+  "title": "Pan Tadeusz",
+  "author": "Adam Mickiewicz",
+  "year": "1999"
+}
+
+<> 2025-12-23T044243.201.json
+
+###
+GET http://localhost:8080/api/books/4
+
+<> 2026-01-06T230852.200.json
+<> 2026-01-06T223556.200.json
+
+###
+GET http://localhost:8080/api/books
+
+<> 2026-01-07T143319.200.json
+<> 2026-01-07T143218.200.json
+<> 2026-01-07T141951.200.json
+<> 2026-01-07T024846.200.json
+<> 2026-01-07T021500.200.json
+<> 2026-01-07T010548.200.json
+<> 2026-01-06T230927.200.json
+<> 2026-01-06T230916.200.json
+<> 2026-01-06T230900.200.json
+<> 2026-01-06T230822.200.json
+<> 2026-01-06T230154.200.json
+<> 2026-01-06T230148.200.json
+<> 2026-01-06T230127.200.json
+<> 2026-01-06T230017.200.json
+<> 2026-01-06T225641.200.json
+<> 2026-01-06T225626.200.json
+<> 2026-01-06T224418.200.json
+
+###
+POST http://localhost:8080/api/books?
+    title=Kwantechizm 2.0 czyli klatka na ludzi&
+    author=Andrzej Dragan&
+    year=2022
+
+<> 2026-01-06T230913.200.json
+<> 2026-01-06T230806.200.json
+<> 2026-01-06T225638.200.json
+<> 2026-01-06T225622.200.json
+
+###
+DELETE http://localhost:8080/api/books/5
+
+<> 2026-01-06T230922.200.txt
+<> 2026-01-06T230151.200.txt
+
+###
+###
+POST http://localhost:8081/api/orders?
+    userId=1&
+    bookId=1
+
+<> 2026-01-07T025045.200.json
+<> 2026-01-07T025042.200.json
+<> 2026-01-07T025040.200.json
+<> 2026-01-07T024955.200.json
+<> 2026-01-07T024948.400.txt
+
+
+###
+GET http://localhost:8081/api/orders/byUserId/3
+
+<> 2026-01-07T144157.200.json
+<> 2026-01-07T144107.200.json
+<> 2026-01-07T143609.200.json
+<> 2026-01-07T143525.200.json
+<> 2026-01-07T143443.200.json
+<> 2026-01-07T141458.200.json
+<> 2026-01-07T141451.200.json
+<> 2026-01-07T025640.200.json
+<> 2026-01-07T025555.200.json
+<> 2026-01-07T025255.200.json
+<> 2026-01-07T025206.200.json
+<> 2026-01-07T025050.200.json
+<> 2026-01-07T025032.200.json
+<> 2026-01-07T025005.200.json
+<> 2026-01-07T024958.200.json
+<> 2026-01-07T024937.200.json
+<> 2026-01-07T024858.400.txt
+<> 2026-01-07T024856.400.txt
+
+
+
+###
+PATCH http://localhost:8081/api/orders
+Content-Type: application/json
+
+{
+  "id": 5,
+  "quantity": 5
+}
+
+<> 2026-01-07T143433.201.json
+
+###
+DELETE http://localhost:8081/api/orders/3
+
+###
+###
+POST http://localhost:8080/api/books
+Content-Type: application/json
+
+{
+  "id": 0,
+  "title": "Potop",
+  "author": "Henryk Sienkiewicz",
+  "year": "2002"
+}
+
+<> 2026-01-07T143309.200.json
+<> 2026-01-07T141937.200.json
+
+###

@@ -73,5 +73,6 @@ class OrdersService(database: Database) {
         newSuspendedTransaction(Dispatchers.IO) { block() }
 }
 
-data class NullableOrder(val id: Int, val userId: Int?, val bookId: Int?, val quantity: Int?)
+@Serializable
+data class NullableOrder(val id: Int, val userId: Int? = null, val bookId: Int? = null, val quantity: Int? = null)
 
