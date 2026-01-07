@@ -22,7 +22,8 @@ fun Application.module() {
         httpClient.close()
     }
     configureSecurity()
-    configureDatabases()
+    val database = configureDatabases()
+    configureRouting(database)
     install(ServerContentNegotiation) {
         json()
     }

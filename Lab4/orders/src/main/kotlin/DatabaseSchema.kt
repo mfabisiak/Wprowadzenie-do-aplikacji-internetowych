@@ -8,7 +8,14 @@ import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransacti
 import org.jetbrains.exposed.sql.transactions.transaction
 
 @Serializable
-data class ExposedOrder(val id: Int? = null, val userId: Int, val bookId: Int, val quantity: Int)
+data class ExposedOrder(val id: Int? = null, val userId: Int, val bookId: Int, val quantity: Int = 1) {
+
+    infix fun update(newOrder: NullableOrder): ExposedOrder = this.copy(
+        userId = newOrder.userId ?: this.userId,
+        bookId = newOrder.bookId ?: this.bookId,
+        quantity = newOrder.quantity ?: this.quantity
+    )
+}
 
 class OrdersService(database: Database) {
     object Orders : Table() {
@@ -65,4 +72,6 @@ class OrdersService(database: Database) {
     private suspend fun <T> dbQuery(block: suspend () -> T): T =
         newSuspendedTransaction(Dispatchers.IO) { block() }
 }
+
+data class NullableOrder(val id: Int, val userId: Int?, val bookId: Int?, val quantity: Int?)
 
