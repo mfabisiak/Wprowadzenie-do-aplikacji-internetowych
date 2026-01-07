@@ -34,15 +34,14 @@ fun Application.configureRouting(database: Database) {
         }
 
         post("/api/books") {
-            val title = call.parameters["title"] ?: throw IllegalArgumentException("Title not provided")
-            val author = call.parameters["author"] ?: throw IllegalArgumentException("Author not provided")
-            val year = call.parameters["year"]?.toInt() ?: throw IllegalArgumentException("Year not provided")
+            val newBook = try {
+                call.receive<ExposedBook>()
+            } catch (_: ContentTransformationException) {
+                call.respond(HttpStatusCode.BadRequest, "Invalid request content")
+                return@post
+            }
 
-            val newId = booksService.create(ExposedBook(
-                title = title,
-                author = author,
-                year = year
-            ))
+            val newId = booksService.create(newBook)
 
             call.respond(HttpStatusCode.OK, newId)
         }
