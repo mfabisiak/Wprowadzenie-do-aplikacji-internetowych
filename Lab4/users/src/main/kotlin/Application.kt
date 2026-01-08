@@ -1,12 +1,18 @@
-package io.github.mfabisiak
+package io.github.mfabisiak.wdai
 
+import io.github.mfabisiak.wdai.configureDatabases
+import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.*
+import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
 
 fun main(args: Array<String>) {
     io.ktor.server.netty.EngineMain.main(args)
 }
 
 fun Application.module() {
+    install(ContentNegotiation) {
+        json()
+    }
     configureSecurity()
     val database = configureDatabases()
     configureRouting(database)

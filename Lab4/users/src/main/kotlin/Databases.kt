@@ -1,4 +1,4 @@
-package io.github.mfabisiak
+package io.github.mfabisiak.wdai
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm

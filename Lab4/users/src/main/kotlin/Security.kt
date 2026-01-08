@@ -1,4 +1,4 @@
-package io.github.mfabisiak
+package io.github.mfabisiak.wdai
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
@@ -13,12 +13,13 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.jetbrains.exposed.sql.*
 
+private const val jwtAudience = "library"
+private const val jwtDomain = "http://localhost:8082/"
+private const val jwtRealm = "library"
+private const val jwtSecret = "very-secret-code"
+
 fun Application.configureSecurity() {
-    // Please read the jwt property from the config file if you are using EngineMain
-    val jwtAudience = "jwt-audience"
-    val jwtDomain = "https://jwt-provider-domain/"
-    val jwtRealm = "ktor sample app"
-    val jwtSecret = "secret"
+
     authentication {
         jwt {
             realm = jwtRealm
@@ -35,3 +36,9 @@ fun Application.configureSecurity() {
         }
     }
 }
+
+fun createToken(userId: Int): String = JWT.create()
+    .withAudience(jwtAudience)
+    .withIssuer(jwtDomain)
+    .withClaim("userId", userId)
+    .sign(Algorithm.HMAC256(jwtSecret))
