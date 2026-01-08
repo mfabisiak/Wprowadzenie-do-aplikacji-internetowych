@@ -1,11 +1,7 @@
 package io.github.mfabisiak.wdai
 
-import io.ktor.http.*
 import io.ktor.server.application.*
-import io.ktor.server.request.receive
-import io.ktor.server.response.*
-import io.ktor.server.routing.*
-import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.Database
 
 fun Application.configureDatabases(): Database {
     val dbPath = java.io.File("../database.db").absolutePath

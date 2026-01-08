@@ -3,6 +3,7 @@ package io.github.mfabisiak.wdai
 import io.github.mfabisiak.wdai.util.validBookId
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.*
+import io.ktor.server.auth.authenticate
 import io.ktor.server.request.ContentTransformationException
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
@@ -40,63 +41,66 @@ fun Application.configureRouting(database: Database) {
 
         }
 
-        post("/api/orders") {
-            val newOrder = try {
-                call.receive<ExposedOrder>()
-            } catch (_: ContentTransformationException) {
-                call.respond(HttpStatusCode.BadRequest, "Invalid request content")
-                return@post
+        authenticate {
+            post("/api/orders") {
+                val newOrder = try {
+                    call.receive<ExposedOrder>()
+                } catch (_: ContentTransformationException) {
+                    call.respond(HttpStatusCode.BadRequest, "Invalid request content")
+                    return@post
+                }
+
+                if (!validBookId(newOrder.bookId)) {
+                    call.respond(HttpStatusCode.NotFound, "Book with ID ${newOrder.bookId} does not exist")
+                    return@post
+                }
+
+
+                val orderId = ordersService.placeOrder(newOrder)
+
+                call.respond(HttpStatusCode.Created, orderId)
             }
 
-            if (!validBookId(newOrder.bookId)) {
-                call.respond(HttpStatusCode.NotFound, "Book with ID ${newOrder.bookId} does not exist")
-                return@post
+            delete("/api/orders/{orderId}") {
+                val orderId =
+                    call.parameters["orderId"]?.toInt() ?: throw IllegalArgumentException("Order ID not provided")
+
+                val result = ordersService.deleteOrder(orderId)
+
+                if (result == 0) {
+                    call.respond(HttpStatusCode.NotFound, "Order with ID $orderId does not exist")
+                    return@delete
+                }
+
+                call.respond(HttpStatusCode.OK)
             }
 
+            patch("/api/orders") {
+                val receivedOrder = try {
+                    call.receive<NullableOrder>()
+                } catch (_: ContentTransformationException) {
+                    call.respond(HttpStatusCode.BadRequest, "Invalid request content")
+                    return@patch
+                }
 
-            val orderId = ordersService.placeOrder(newOrder)
+                val order = ordersService.getOrderById(receivedOrder.id)
 
-            call.respond(HttpStatusCode.Created, orderId)
-        }
+                if (order == null) {
+                    call.respond(HttpStatusCode.NotFound, "Order with ID ${receivedOrder.id} does not exist")
+                    return@patch
+                }
 
-        delete("/api/orders/{orderId}") {
-            val orderId = call.parameters["orderId"]?.toInt() ?: throw IllegalArgumentException("Order ID not provided")
+                if (receivedOrder.bookId != null && !validBookId(receivedOrder.bookId)) {
+                    call.respond(HttpStatusCode.NotFound, "Book with ID ${receivedOrder.bookId} does not exist")
+                    return@patch
+                }
 
-            val result = ordersService.deleteOrder(orderId)
+                val newOrder = order update receivedOrder
 
-            if (result == 0) {
-                call.respond(HttpStatusCode.NotFound, "Order with ID $orderId does not exist")
-                return@delete
+                ordersService.updateOrder(receivedOrder.id, newOrder)
+
+                call.respond(HttpStatusCode.OK)
             }
-
-            call.respond(HttpStatusCode.OK)
-        }
-
-        patch("/api/orders") {
-            val receivedOrder = try {
-                call.receive<NullableOrder>()
-            } catch (_: ContentTransformationException) {
-                call.respond(HttpStatusCode.BadRequest, "Invalid request content")
-                return@patch
-            }
-
-            val order = ordersService.getOrderById(receivedOrder.id)
-
-            if (order == null) {
-                call.respond(HttpStatusCode.NotFound, "Order with ID ${receivedOrder.id} does not exist")
-                return@patch
-            }
-
-            if (receivedOrder.bookId != null && !validBookId(receivedOrder.bookId)) {
-                call.respond(HttpStatusCode.NotFound, "Book with ID ${receivedOrder.bookId} does not exist")
-                return@patch
-            }
-
-            val newOrder = order update receivedOrder
-
-            ordersService.updateOrder(receivedOrder.id, newOrder)
-
-            call.respond(HttpStatusCode.OK)
         }
     }
 }

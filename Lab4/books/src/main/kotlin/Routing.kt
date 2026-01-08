@@ -1,15 +1,11 @@
 package io.github.mfabisiak.wdai
 
-import io.ktor.http.HttpStatusCode
+import io.ktor.http.*
 import io.ktor.server.application.*
-import io.ktor.server.request.ContentTransformationException
-import io.ktor.server.request.receive
-import io.ktor.server.response.respond
-import io.ktor.server.routing.delete
-import io.ktor.server.routing.get
-import io.ktor.server.routing.patch
-import io.ktor.server.routing.post
-import io.ktor.server.routing.routing
+import io.ktor.server.auth.*
+import io.ktor.server.request.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
 import org.jetbrains.exposed.sql.Database
 
 fun Application.configureRouting(database: Database) {
@@ -33,25 +29,27 @@ fun Application.configureRouting(database: Database) {
             call.respond(HttpStatusCode.OK, books)
         }
 
-        post("/api/books") {
-            val newBook = try {
-                call.receive<ExposedBook>()
-            } catch (_: ContentTransformationException) {
-                call.respond(HttpStatusCode.BadRequest, "Invalid request content")
-                return@post
+        authenticate {
+            post("/api/books") {
+                val newBook = try {
+                    call.receive<ExposedBook>()
+                } catch (_: ContentTransformationException) {
+                    call.respond(HttpStatusCode.BadRequest, "Invalid request content")
+                    return@post
+                }
+
+                val newId = booksService.create(newBook)
+
+                call.respond(HttpStatusCode.OK, newId)
             }
 
-            val newId = booksService.create(newBook)
+            delete("/api/books/{id}") {
+                val id = call.parameters["id"]?.toInt() ?: throw IllegalArgumentException("ID not provided")
 
-            call.respond(HttpStatusCode.OK, newId)
-        }
+                booksService.delete(id)
+                call.respond(HttpStatusCode.OK, "Book of ID $id deleted.")
 
-        delete("/api/books/{id}") {
-            val id = call.parameters["id"]?.toInt() ?: throw IllegalArgumentException("ID not provided")
-
-            booksService.delete(id)
-            call.respond(HttpStatusCode.OK, "Book of ID $id deleted.")
-
+            }
         }
     }
 }
