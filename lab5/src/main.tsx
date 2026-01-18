@@ -7,6 +7,9 @@ import Ternary from "./components/other/Ternary.tsx";
 import Update from "./components/other/Update.tsx";
 import Students from "./components/students/Students.tsx";
 import StudentManager from "./components/students/StudentManager.tsx";
+import Counter from "./components/effects/Counter.tsx";
+import Title from "./components/effects/Title.tsx";
+import Countdown from "./components/effects/Countdown.tsx";
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
@@ -27,5 +30,8 @@ createRoot(document.getElementById('root')!).render(
         <Update/>
         <Students/>
         <StudentManager/>
+        <Counter/>
+        <Title/>
+        <Countdown/>
     </StrictMode>,
 );
