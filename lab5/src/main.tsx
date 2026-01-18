@@ -5,6 +5,8 @@ import Password from "./components/forms/Password.tsx";
 import Login from "./components/forms/Login.tsx";
 import Ternary from "./components/other/Ternary.tsx";
 import Update from "./components/other/Update.tsx";
+import Students from "./components/students/Students.tsx";
+import StudentManager from "./components/students/StudentManager.tsx";
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
@@ -23,5 +25,7 @@ createRoot(document.getElementById('root')!).render(
         <Login/>
         <Ternary/>
         <Update/>
+        <Students/>
+        <StudentManager/>
     </StrictMode>,
 )
