@@ -3,9 +3,9 @@ import {useState} from "react";
 import Student from "./Student.ts";
 
 function AddStudent({action}: { action: (student: StudentEntry) => void }) {
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [year, setYear] = useState('')
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [year, setYear] = useState('');
 
 
     function isDisabled() {

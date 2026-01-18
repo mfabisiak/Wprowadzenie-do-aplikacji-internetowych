@@ -8,7 +8,7 @@ function StudentManager() {
         new Student('Józef', 'Stary', 1554),
         new Student('Ser', 'Serowy', 2020),
         new Student('Karol', 'Łysy', 1995)
-    ] as StudentEntry[])
+    ] as StudentEntry[]);
 
     function addStudent(student: StudentEntry) {
         setStudents([...students, student])
@@ -40,4 +40,3 @@ function StudentManager() {
 }
 
 export default StudentManager
-

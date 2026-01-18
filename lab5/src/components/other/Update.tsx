@@ -1,7 +1,7 @@
 import {useState} from "react";
 
 function Update({name = 'pomidor', price = 50}: { name?: string, price?: number }) {
-    const [product, setProduct] = useState({name: name, price: price})
+    const [product, setProduct] = useState({name: name, price: price});
 
 
     return (

@@ -1,7 +1,7 @@
 import {useState} from "react";
 
 function Form() {
-    const [textInput, setTextInput] = useState('')
+    const [textInput, setTextInput] = useState('');
 
     return (
         <>

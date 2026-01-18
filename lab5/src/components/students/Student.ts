@@ -6,9 +6,9 @@ export default class Student implements StudentEntry {
     readonly firstName: string;
 
     constructor(firstName: string, lastName: string, year: number) {
-        this.firstName = firstName
-        this.lastName = lastName
-        this.year = year
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.year = year;
     }
 
 }

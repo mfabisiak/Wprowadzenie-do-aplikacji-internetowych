@@ -28,4 +28,4 @@ createRoot(document.getElementById('root')!).render(
         <Students/>
         <StudentManager/>
     </StrictMode>,
-)
+);

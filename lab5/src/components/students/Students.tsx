@@ -1,29 +1,12 @@
-interface StudentEntry {
-    readonly firstName: string;
-    readonly lastName: string;
-    readonly year: number;
-}
-
-class Student implements StudentEntry {
-    readonly year: number;
-    readonly lastName: string;
-    readonly firstName: string;
-
-    constructor(firstName: string, lastName: string, year: number) {
-        this.firstName = firstName
-        this.lastName = lastName
-        this.year = year
-    }
-
-}
-
+import type StudentEntry from "./StudentEntry.ts";
+import Student from "./Student.ts";
 
 function Students() {
     const students: StudentEntry[] = [
         new Student('Józef', 'Stary', 1554),
         new Student('Ser', 'Serowy', 2020),
         new Student('Karol', 'Łysy', 1995)
-    ]
+    ];
 
     return (
         <table>
