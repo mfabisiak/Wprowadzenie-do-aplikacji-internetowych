@@ -3,6 +3,8 @@ import {createRoot} from 'react-dom/client'
 import './index.css'
 import Password from "./components/forms/Password.tsx";
 import Login from "./components/forms/Login.tsx";
+import Ternary from "./components/other/Ternary.tsx";
+import Update from "./components/other/Update.tsx";
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
@@ -19,5 +21,7 @@ createRoot(document.getElementById('root')!).render(
         {/*<Form/>*/}
         <Password/>
         <Login/>
+        <Ternary/>
+        <Update/>
     </StrictMode>,
 )
