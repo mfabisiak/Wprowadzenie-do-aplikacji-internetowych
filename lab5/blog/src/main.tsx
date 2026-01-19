@@ -6,11 +6,13 @@ import Welcome from './components/Welcome.tsx';
 import AddArticle from './components/AddArticle.tsx';
 import Blog from './components/Blog.tsx';
 import Article from './components/Article.tsx';
+import Navbar from './components/Navbar.tsx';
 
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
         <BrowserRouter>
+            <Navbar/>
             <Routes>
                 <Route path={'/'} element={<Welcome/>}/>
                 <Route path={'/add'} element={<AddArticle/>}/>

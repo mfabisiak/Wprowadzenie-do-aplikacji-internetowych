@@ -1,5 +1,6 @@
 import {useNavigate, useParams} from 'react-router-dom';
 import type ArticleData from './ArticleData.ts';
+import styles from './Article.module.css';
 
 function Article() {
     const navigate = useNavigate();
@@ -17,12 +18,18 @@ function Article() {
     }
 
     return (
-        <>
-            <article>
-                <h1>{article.title}</h1>
-                <p>{article.content}</p>
+        <div className={styles.container}>
+            <article className={styles.article}>
+                <h1 className={styles.title}>{article.title}</h1>
+                <p className={styles.content}>{article.content}</p>
+                <button
+                    className={styles.backButton}
+                    onClick={() => navigate('../blog')}
+                >
+                    ← Back to articles
+                </button>
             </article>
-        </>
+        </div>
     );
 }
 
