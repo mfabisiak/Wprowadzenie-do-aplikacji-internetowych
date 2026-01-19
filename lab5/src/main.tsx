@@ -10,6 +10,7 @@ import StudentManager from "./components/students/StudentManager.tsx";
 import Counter from "./components/effects/Counter.tsx";
 import Title from "./components/effects/Title.tsx";
 import Countdown from "./components/effects/Countdown.tsx";
+import Comments from "./components/products/Comments.tsx";
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
@@ -33,5 +34,6 @@ createRoot(document.getElementById('root')!).render(
         <Counter/>
         <Title/>
         <Countdown/>
+        <Comments/>
     </StrictMode>,
 );
