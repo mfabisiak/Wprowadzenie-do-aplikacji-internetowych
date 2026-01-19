@@ -1,17 +1,22 @@
-import type Article from './Article.ts';
+import type ArticleData from './ArticleData.ts';
 import {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 
 function AddArticle() {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
 
+    const navigate = useNavigate();
+
     function addArticle() {
-        const currentData: Article[] = JSON.parse(localStorage.getItem('articles') ?? '[]');
+        const currentData: ArticleData[] = JSON.parse(localStorage.getItem('articles') ?? '[]');
 
 
         const id = (currentData.map(x => x.id).sort()[0] ?? 0) + 1;
 
         localStorage.setItem('articles', JSON.stringify([...currentData, {id, title, content}]));
+
+        navigate('../blog');
     }
 
     function isDisabled() {
