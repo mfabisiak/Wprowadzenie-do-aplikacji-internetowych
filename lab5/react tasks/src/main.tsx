@@ -11,6 +11,7 @@ import Counter from "./components/effects/Counter.tsx";
 import Title from "./components/effects/Title.tsx";
 import Countdown from "./components/effects/Countdown.tsx";
 import Comments from "./components/products/Comments.tsx";
+import StoredCounter from "./components/stored_counter/StoredCounter.tsx";
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
@@ -35,5 +36,6 @@ createRoot(document.getElementById('root')!).render(
         <Title/>
         <Countdown/>
         <Comments/>
+        <StoredCounter/>
     </StrictMode>,
 );
