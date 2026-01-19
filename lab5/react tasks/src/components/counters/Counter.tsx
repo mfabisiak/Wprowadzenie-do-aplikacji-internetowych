@@ -1,15 +1,14 @@
 import {useState} from "react";
-import Button from "./Button.tsx";
 
-function NewCounter() {
+function Counter() {
     const [counter, setCounter] = useState(0);
 
     return (
         <div>
             <p>Counter: {counter}</p>
-            <Button action={() => setCounter(counter + 1)}/>
+            <button onClick={() => setCounter(prevCounter => prevCounter + 1)}>Add</button>
         </div>
     );
 }
 
-export default NewCounter;
+export default Counter;
